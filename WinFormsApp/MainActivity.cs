@@ -1,103 +1,201 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+struct Stroke
+{
+    public List<Point> strokes;
+    public Color color;
+}
 
 namespace WinFormsApp
 {
     public partial class MainActivity : Form
     {
-        bool shouldReset = false;
-        bool shouldScale = false;
-        bool shouldTranslate = false;
-        bool shouldRotate = false;
-
-        float scaling;
-        float translation;
-        float rotation;
+        private bool isDrawing = false;
+        private readonly List<Stroke> strokes = new List<Stroke>();
+        private Stroke currStroke;
 
         public MainActivity()
         {
             InitializeComponent();
+            sizeXTextBox.Text = drawingBox.Size.Width.ToString();
+            sizeYTextBox.Text = drawingBox.Size.Height.ToString();
         }
 
-        private void DrawingBox_Paint(object sender, PaintEventArgs e)
+        private void drawingBox_Click(object sender, PaintEventArgs e)
         {
-            Pen myPen = new Pen(Color.Blue, 2);
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            if (shouldScale && scaling != 0)
+            Matrix transformations = new Matrix();
+
+            if (rotationCheckbox.Checked)
             {
-                e.Graphics.ScaleTransform(scaling, scaling);
-                shouldScale = false;
+                transformations.Rotate(Convert.ToSingle(rotationValue.Value));
             }
 
-            if (shouldTranslate && translation != 0)
+            if (homothesisCheckbox.Checked)
             {
-                e.Graphics.TranslateTransform(translation, translation);
-                shouldTranslate = false;
+                transformations.Scale(Convert.ToSingle(homothesisValue.Value), Convert.ToSingle(homothesisValue.Value));
             }
 
-            if (shouldRotate)
-            {
-                e.Graphics.RotateTransform(rotation);
-                shouldRotate = false;
-            }
+            GraphicsPath path;
 
-            if (shouldReset)
+            foreach (Stroke stroke in strokes.Where(x => x.strokes.Count > 1))
             {
-                e.Graphics.ResetTransform();
-                shouldReset = false;
-                shouldScale = false;
-                shouldTranslate = false;
-            }
+                Matrix reflection;
+                path = new GraphicsPath();
+                path.AddLines(stroke.strokes.ToArray());
+                path.Transform(transformations);
 
-            e.Graphics.DrawRectangle(myPen, new Rectangle(200, 200, 40, 40));
+                if (reflectionXCheckbox.Checked)
+                {
+                    reflection = new Matrix(-1, 0, 0, 1, 0, 0);
+                }
+                else if (reflectionYCheckbox.Checked)
+                {
+                    reflection = new Matrix(1, 0, 0, -1, 0, 0);
+                }
+                else if (reflectionXCheckbox.Checked && reflectionYCheckbox.Checked)
+                {
+                    reflection = new Matrix(-1, 0, 0, -1, 0, 0);
+                } else
+                {
+                    reflection = new Matrix(1, 0, 0, 1, 0, 0);
+                }
+                path.Transform(reflection);
+
+                g.DrawPath(new Pen(stroke.color, 2), path);
+            }
         }
 
-        private void resetBtn_Click(object sender, EventArgs e)
+        private void colorBtn_Click(object sender, EventArgs e)
         {
-            shouldReset = true;
+            if (colorSelector.ShowDialog() == DialogResult.OK)
+            {
+                colorBtn.BackColor = colorSelector.Color;
+                if (colorSelector.Color == Color.Black)
+                {
+                    colorBtn.ForeColor = Color.White;
+                }
+                else
+                {
+                    colorBtn.ForeColor = Color.Black;
+                }
+            }
+        }
+
+        private void drawingBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDrawing = true;
+            currStroke = new Stroke
+            {
+                strokes = new List<Point>
+            {
+                e.Location
+            },
+                color = colorSelector.Color
+            };
+            strokes.Add(currStroke);
+        }
+
+        private void drawingBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDrawing)
+            {
+                currStroke.strokes.Add(e.Location);
+                Refresh();
+            }
+
+            coordsLabel.Text = "Coordenadas del mouse" + Environment.NewLine + $"X: {e.Location.X} - Y: {e.Location.Y}";
+        }
+
+        private void drawingBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDrawing = false;
+        }
+
+        private void sizeXTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Size size = drawingBox.Size;
+            if (Int32.TryParse(sizeXTextBox.Text, out int width))
+            {
+                size.Width = width;
+                drawingBox.Size = size;
+            }
             Refresh();
         }
 
-        private void scaleBtn_Click(object sender, EventArgs e)
+        private void sizeYTextBox_TextChanged(object sender, EventArgs e)
         {
-            shouldScale = true;
+            Size size = drawingBox.Size;
+            if (Int32.TryParse(sizeYTextBox.Text, out int height))
+            {
+                size.Height = height;
+                drawingBox.Size = size;
+            }
             Refresh();
         }
 
-        private void translateBtn_Click(object sender, EventArgs e)
+        private void MainActivity_Resize(object sender, EventArgs e)
         {
-            shouldTranslate = true;
+            sizeXTextBox.Text = drawingBox.Size.Width.ToString();
+            sizeYTextBox.Text = drawingBox.Size.Height.ToString();
             Refresh();
         }
 
-        private void rotateBtn_Click(object sender, EventArgs e)
+        private void autoResizeCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            shouldRotate = true;
+            Size size;
+            if (autoResizeCheckbox.Checked)
+            {
+                sizeXTextBox.ReadOnly = true;
+                sizeYTextBox.ReadOnly = true;
+                drawingBox.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                sizeXTextBox.ReadOnly = false;
+                sizeYTextBox.ReadOnly = false;
+
+                size = drawingBox.Size;
+                drawingBox.Dock = DockStyle.None;
+                drawingBox.Size = size;
+            }
+
+            sizeXTextBox.Text = drawingBox.Size.Width.ToString();
+            sizeYTextBox.Text = drawingBox.Size.Height.ToString();
+        }
+
+        private void drawingBox_MouseLeave(object sender, EventArgs e)
+        {
+            coordsLabel.Text = "Coordenadas del mouse" + Environment.NewLine + "-";
+        }
+
+        private void cleanBtn_Click(object sender, EventArgs e)
+        {
+            strokes.RemoveAll(x => true);
             Refresh();
         }
 
-        private void scaleTextBox_TextChanged(object sender, EventArgs e)
+        private void cleanTransformBtn_Click(object sender, EventArgs e)
         {
-            float.TryParse(scaleTextBox.Text.ToString(), out scaling);
+            rotationCheckbox.Checked = false;
+            rotationValue.Value = 0;
+            homothesisCheckbox.Checked = false;
+            homothesisValue.Value = 1;
+            reflectionXCheckbox.Checked = false;
+            reflectionYCheckbox.Checked = false;
         }
 
-        private void translateTextBox_TextChanged(object sender, EventArgs e)
+        private void refreshScreen(object sender, EventArgs e)
         {
-            float.TryParse(translateTextBox.Text.ToString(), out translation);
-        }
-
-        private void rotateTextBox_TextChanged(object sender, EventArgs e)
-        {
-            float.TryParse(rotateTextBox.Text.ToString(), out rotation);
+            Refresh();
         }
     }
 }

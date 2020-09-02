@@ -28,156 +28,455 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.DrawingBox = new System.Windows.Forms.PictureBox();
-            this.scaleBtn = new System.Windows.Forms.Button();
-            this.scaleTextBox = new System.Windows.Forms.TextBox();
-            this.translateBtn = new System.Windows.Forms.Button();
-            this.translateTextBox = new System.Windows.Forms.TextBox();
-            this.rotateBtn = new System.Windows.Forms.Button();
-            this.rotateTextBox = new System.Windows.Forms.TextBox();
-            this.resetBtn = new System.Windows.Forms.Button();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DrawingBox)).BeginInit();
-            this.flowLayoutPanel2.SuspendLayout();
+            this.mainTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.coordsLabel = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.TextBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label2 = new System.Windows.Forms.TextBox();
+            this.sizeXTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.TextBox();
+            this.sizeYTextBox = new System.Windows.Forms.TextBox();
+            this.autoResizeCheckbox = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.rotationValue = new System.Windows.Forms.NumericUpDown();
+            this.homothesisValue = new System.Windows.Forms.NumericUpDown();
+            this.cleanTransformBtn = new System.Windows.Forms.Button();
+            this.rotationCheckbox = new System.Windows.Forms.CheckBox();
+            this.homothesisCheckbox = new System.Windows.Forms.CheckBox();
+            this.reflectionXCheckbox = new System.Windows.Forms.CheckBox();
+            this.reflectionYCheckbox = new System.Windows.Forms.CheckBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.cleanBtn = new System.Windows.Forms.Button();
+            this.colorBtn = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.drawingBox = new System.Windows.Forms.PictureBox();
+            this.colorSelector = new System.Windows.Forms.ColorDialog();
+            this.mainTableLayout.SuspendLayout();
+            this.optionsLayout.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // mainTableLayout
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.Controls.Add(this.DrawingBox, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.mainTableLayout.ColumnCount = 2;
+            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.mainTableLayout.Controls.Add(this.optionsLayout, 1, 0);
+            this.mainTableLayout.Controls.Add(this.panel1, 0, 0);
+            this.mainTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainTableLayout.Location = new System.Drawing.Point(0, 0);
+            this.mainTableLayout.Name = "mainTableLayout";
+            this.mainTableLayout.RowCount = 1;
+            this.mainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.mainTableLayout.Size = new System.Drawing.Size(800, 450);
+            this.mainTableLayout.TabIndex = 0;
             // 
-            // DrawingBox
+            // optionsLayout
             // 
-            this.DrawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DrawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DrawingBox.Location = new System.Drawing.Point(3, 3);
-            this.DrawingBox.Name = "DrawingBox";
-            this.DrawingBox.Size = new System.Drawing.Size(594, 444);
-            this.DrawingBox.TabIndex = 1;
-            this.DrawingBox.TabStop = false;
-            this.DrawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingBox_Paint);
+            this.optionsLayout.ColumnCount = 1;
+            this.optionsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.optionsLayout.Controls.Add(this.textBox2, 0, 9);
+            this.optionsLayout.Controls.Add(this.coordsLabel, 0, 0);
+            this.optionsLayout.Controls.Add(this.label1, 0, 1);
+            this.optionsLayout.Controls.Add(this.flowLayoutPanel1, 0, 2);
+            this.optionsLayout.Controls.Add(this.autoResizeCheckbox, 0, 3);
+            this.optionsLayout.Controls.Add(this.textBox1, 0, 6);
+            this.optionsLayout.Controls.Add(this.rotationValue, 0, 7);
+            this.optionsLayout.Controls.Add(this.homothesisValue, 0, 10);
+            this.optionsLayout.Controls.Add(this.cleanTransformBtn, 0, 15);
+            this.optionsLayout.Controls.Add(this.rotationCheckbox, 0, 8);
+            this.optionsLayout.Controls.Add(this.homothesisCheckbox, 0, 11);
+            this.optionsLayout.Controls.Add(this.reflectionXCheckbox, 0, 13);
+            this.optionsLayout.Controls.Add(this.reflectionYCheckbox, 0, 14);
+            this.optionsLayout.Controls.Add(this.textBox3, 0, 12);
+            this.optionsLayout.Controls.Add(this.cleanBtn, 0, 5);
+            this.optionsLayout.Controls.Add(this.colorBtn, 0, 4);
+            this.optionsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.optionsLayout.Location = new System.Drawing.Point(603, 3);
+            this.optionsLayout.Name = "optionsLayout";
+            this.optionsLayout.RowCount = 17;
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.optionsLayout.Size = new System.Drawing.Size(194, 444);
+            this.optionsLayout.TabIndex = 2;
             // 
-            // scaleBtn
+            // textBox2
             // 
-            this.scaleBtn.Location = new System.Drawing.Point(3, 3);
-            this.scaleBtn.Name = "scaleBtn";
-            this.scaleBtn.Size = new System.Drawing.Size(75, 23);
-            this.scaleBtn.TabIndex = 1;
-            this.scaleBtn.Text = "Scale";
-            this.scaleBtn.UseVisualStyleBackColor = true;
-            this.scaleBtn.Click += new System.EventHandler(this.scaleBtn_Click);
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox2.Location = new System.Drawing.Point(0, 235);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(194, 10);
+            this.textBox2.TabIndex = 18;
+            this.textBox2.Text = "---------------------------------------------------------------------------------" +
+    "------------";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox2.WordWrap = false;
             // 
-            // scaleTextBox
+            // coordsLabel
             // 
-            this.scaleTextBox.Location = new System.Drawing.Point(84, 3);
-            this.scaleTextBox.Name = "scaleTextBox";
-            this.scaleTextBox.Size = new System.Drawing.Size(100, 20);
-            this.scaleTextBox.TabIndex = 3;
-            this.scaleTextBox.TextChanged += new System.EventHandler(this.scaleTextBox_TextChanged);
+            this.coordsLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.coordsLabel.Location = new System.Drawing.Point(3, 3);
+            this.coordsLabel.Multiline = true;
+            this.coordsLabel.Name = "coordsLabel";
+            this.coordsLabel.ReadOnly = true;
+            this.coordsLabel.Size = new System.Drawing.Size(188, 29);
+            this.coordsLabel.TabIndex = 1;
+            this.coordsLabel.Text = "Coordenadas del mouse\r\n-";
+            this.coordsLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // translateBtn
+            // label1
             // 
-            this.translateBtn.Location = new System.Drawing.Point(3, 32);
-            this.translateBtn.Name = "translateBtn";
-            this.translateBtn.Size = new System.Drawing.Size(75, 23);
-            this.translateBtn.TabIndex = 4;
-            this.translateBtn.Text = "Translate";
-            this.translateBtn.UseVisualStyleBackColor = true;
-            this.translateBtn.Click += new System.EventHandler(this.translateBtn_Click);
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 38);
+            this.label1.Multiline = true;
+            this.label1.Name = "label1";
+            this.label1.ReadOnly = true;
+            this.label1.Size = new System.Drawing.Size(188, 14);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Tamaño del lienzo";
+            this.label1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // translateTextBox
+            // flowLayoutPanel1
             // 
-            this.translateTextBox.Location = new System.Drawing.Point(84, 32);
-            this.translateTextBox.Name = "translateTextBox";
-            this.translateTextBox.Size = new System.Drawing.Size(100, 20);
-            this.translateTextBox.TabIndex = 5;
-            this.translateTextBox.TextChanged += new System.EventHandler(this.translateTextBox_TextChanged);
+            this.flowLayoutPanel1.Controls.Add(this.label2);
+            this.flowLayoutPanel1.Controls.Add(this.sizeXTextBox);
+            this.flowLayoutPanel1.Controls.Add(this.label3);
+            this.flowLayoutPanel1.Controls.Add(this.sizeYTextBox);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 55);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(194, 25);
+            this.flowLayoutPanel1.TabIndex = 3;
+            this.flowLayoutPanel1.WrapContents = false;
             // 
-            // rotateBtn
+            // label2
             // 
-            this.rotateBtn.Location = new System.Drawing.Point(3, 61);
-            this.rotateBtn.Name = "rotateBtn";
-            this.rotateBtn.Size = new System.Drawing.Size(75, 23);
-            this.rotateBtn.TabIndex = 6;
-            this.rotateBtn.Text = "Rotate";
-            this.rotateBtn.UseVisualStyleBackColor = true;
-            this.rotateBtn.Click += new System.EventHandler(this.rotateBtn_Click);
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.label2.Location = new System.Drawing.Point(3, 3);
+            this.label2.Multiline = true;
+            this.label2.Name = "label2";
+            this.label2.ReadOnly = true;
+            this.label2.Size = new System.Drawing.Size(40, 19);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Ancho";
+            this.label2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.label2.WordWrap = false;
             // 
-            // rotateTextBox
+            // sizeXTextBox
             // 
-            this.rotateTextBox.Location = new System.Drawing.Point(84, 61);
-            this.rotateTextBox.Name = "rotateTextBox";
-            this.rotateTextBox.Size = new System.Drawing.Size(100, 20);
-            this.rotateTextBox.TabIndex = 7;
-            this.rotateTextBox.TextChanged += new System.EventHandler(this.rotateTextBox_TextChanged);
+            this.sizeXTextBox.Location = new System.Drawing.Point(49, 3);
+            this.sizeXTextBox.Name = "sizeXTextBox";
+            this.sizeXTextBox.ReadOnly = true;
+            this.sizeXTextBox.Size = new System.Drawing.Size(40, 20);
+            this.sizeXTextBox.TabIndex = 0;
+            this.sizeXTextBox.TextChanged += new System.EventHandler(this.sizeXTextBox_TextChanged);
             // 
-            // resetBtn
+            // label3
             // 
-            this.resetBtn.AutoSize = true;
-            this.resetBtn.Location = new System.Drawing.Point(3, 90);
-            this.resetBtn.Name = "resetBtn";
-            this.resetBtn.Size = new System.Drawing.Size(75, 23);
-            this.resetBtn.TabIndex = 2;
-            this.resetBtn.Text = "Reset";
-            this.resetBtn.UseVisualStyleBackColor = true;
-            this.resetBtn.Click += new System.EventHandler(this.resetBtn_Click);
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.label3.Location = new System.Drawing.Point(95, 3);
+            this.label3.Multiline = true;
+            this.label3.Name = "label3";
+            this.label3.ReadOnly = true;
+            this.label3.Size = new System.Drawing.Size(40, 20);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Alto";
+            this.label3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.label3.WordWrap = false;
             // 
-            // flowLayoutPanel2
+            // sizeYTextBox
             // 
-            this.flowLayoutPanel2.Controls.Add(this.scaleBtn);
-            this.flowLayoutPanel2.Controls.Add(this.scaleTextBox);
-            this.flowLayoutPanel2.Controls.Add(this.translateBtn);
-            this.flowLayoutPanel2.Controls.Add(this.translateTextBox);
-            this.flowLayoutPanel2.Controls.Add(this.rotateBtn);
-            this.flowLayoutPanel2.Controls.Add(this.rotateTextBox);
-            this.flowLayoutPanel2.Controls.Add(this.resetBtn);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(603, 3);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(194, 444);
-            this.flowLayoutPanel2.TabIndex = 4;
+            this.sizeYTextBox.Location = new System.Drawing.Point(141, 3);
+            this.sizeYTextBox.Name = "sizeYTextBox";
+            this.sizeYTextBox.ReadOnly = true;
+            this.sizeYTextBox.Size = new System.Drawing.Size(40, 20);
+            this.sizeYTextBox.TabIndex = 1;
+            this.sizeYTextBox.TextChanged += new System.EventHandler(this.sizeYTextBox_TextChanged);
+            // 
+            // autoResizeCheckbox
+            // 
+            this.autoResizeCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.autoResizeCheckbox.AutoSize = true;
+            this.autoResizeCheckbox.Checked = true;
+            this.autoResizeCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoResizeCheckbox.Location = new System.Drawing.Point(3, 83);
+            this.autoResizeCheckbox.Name = "autoResizeCheckbox";
+            this.autoResizeCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.autoResizeCheckbox.TabIndex = 4;
+            this.autoResizeCheckbox.Text = "Redimensionar automáticamente";
+            this.autoResizeCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.autoResizeCheckbox.UseVisualStyleBackColor = true;
+            this.autoResizeCheckbox.CheckedChanged += new System.EventHandler(this.autoResizeCheckbox_CheckedChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(0, 175);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(194, 10);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Text = "---------------------------------------------------------------------------------" +
+    "------------";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox1.WordWrap = false;
+            // 
+            // rotationValue
+            // 
+            this.rotationValue.DecimalPlaces = 2;
+            this.rotationValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rotationValue.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.rotationValue.Location = new System.Drawing.Point(3, 188);
+            this.rotationValue.Maximum = new decimal(new int[] {
+            359,
+            0,
+            0,
+            0});
+            this.rotationValue.Name = "rotationValue";
+            this.rotationValue.Size = new System.Drawing.Size(188, 20);
+            this.rotationValue.TabIndex = 9;
+            this.rotationValue.ValueChanged += new System.EventHandler(this.refreshScreen);
+            // 
+            // homothesisValue
+            // 
+            this.homothesisValue.DecimalPlaces = 2;
+            this.homothesisValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.homothesisValue.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.homothesisValue.Location = new System.Drawing.Point(3, 248);
+            this.homothesisValue.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.homothesisValue.Name = "homothesisValue";
+            this.homothesisValue.Size = new System.Drawing.Size(188, 20);
+            this.homothesisValue.TabIndex = 10;
+            this.homothesisValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.homothesisValue.ValueChanged += new System.EventHandler(this.refreshScreen);
+            // 
+            // cleanTransformBtn
+            // 
+            this.cleanTransformBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cleanTransformBtn.Location = new System.Drawing.Point(3, 358);
+            this.cleanTransformBtn.Name = "cleanTransformBtn";
+            this.cleanTransformBtn.Size = new System.Drawing.Size(188, 29);
+            this.cleanTransformBtn.TabIndex = 13;
+            this.cleanTransformBtn.Text = "Deshacer transformaciones";
+            this.cleanTransformBtn.UseVisualStyleBackColor = true;
+            this.cleanTransformBtn.Click += new System.EventHandler(this.cleanTransformBtn_Click);
+            // 
+            // rotationCheckbox
+            // 
+            this.rotationCheckbox.AutoSize = true;
+            this.rotationCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rotationCheckbox.Location = new System.Drawing.Point(3, 213);
+            this.rotationCheckbox.Name = "rotationCheckbox";
+            this.rotationCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.rotationCheckbox.TabIndex = 14;
+            this.rotationCheckbox.Text = "Aplicar ángulo de rotación";
+            this.rotationCheckbox.UseVisualStyleBackColor = true;
+            this.rotationCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen);
+            // 
+            // homothesisCheckbox
+            // 
+            this.homothesisCheckbox.AutoSize = true;
+            this.homothesisCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.homothesisCheckbox.Location = new System.Drawing.Point(3, 273);
+            this.homothesisCheckbox.Name = "homothesisCheckbox";
+            this.homothesisCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.homothesisCheckbox.TabIndex = 15;
+            this.homothesisCheckbox.Text = "Aplicar factor de homotecia";
+            this.homothesisCheckbox.UseVisualStyleBackColor = true;
+            this.homothesisCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen);
+            // 
+            // reflectionXCheckbox
+            // 
+            this.reflectionXCheckbox.AutoSize = true;
+            this.reflectionXCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reflectionXCheckbox.Location = new System.Drawing.Point(3, 308);
+            this.reflectionXCheckbox.Name = "reflectionXCheckbox";
+            this.reflectionXCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.reflectionXCheckbox.TabIndex = 16;
+            this.reflectionXCheckbox.Text = "Aplicar reflexión en X";
+            this.reflectionXCheckbox.UseVisualStyleBackColor = true;
+            this.reflectionXCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen);
+            // 
+            // reflectionYCheckbox
+            // 
+            this.reflectionYCheckbox.AutoSize = true;
+            this.reflectionYCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reflectionYCheckbox.Location = new System.Drawing.Point(3, 333);
+            this.reflectionYCheckbox.Name = "reflectionYCheckbox";
+            this.reflectionYCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.reflectionYCheckbox.TabIndex = 17;
+            this.reflectionYCheckbox.Text = "Aplicar reflexión en Y";
+            this.reflectionYCheckbox.UseVisualStyleBackColor = true;
+            this.reflectionYCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen);
+            // 
+            // textBox3
+            // 
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox3.Location = new System.Drawing.Point(0, 295);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(194, 10);
+            this.textBox3.TabIndex = 19;
+            this.textBox3.Text = "---------------------------------------------------------------------------------" +
+    "------------";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox3.WordWrap = false;
+            // 
+            // cleanBtn
+            // 
+            this.cleanBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cleanBtn.Location = new System.Drawing.Point(3, 143);
+            this.cleanBtn.Name = "cleanBtn";
+            this.cleanBtn.Size = new System.Drawing.Size(188, 29);
+            this.cleanBtn.TabIndex = 5;
+            this.cleanBtn.Text = "Limpiar lienzo";
+            this.cleanBtn.UseVisualStyleBackColor = true;
+            this.cleanBtn.Click += new System.EventHandler(this.cleanBtn_Click);
+            // 
+            // colorBtn
+            // 
+            this.colorBtn.BackColor = System.Drawing.Color.Black;
+            this.colorBtn.ForeColor = System.Drawing.Color.White;
+            this.colorBtn.Location = new System.Drawing.Point(3, 108);
+            this.colorBtn.Name = "colorBtn";
+            this.colorBtn.Size = new System.Drawing.Size(188, 29);
+            this.colorBtn.TabIndex = 0;
+            this.colorBtn.Text = "Color de lápiz";
+            this.colorBtn.UseVisualStyleBackColor = false;
+            this.colorBtn.Click += new System.EventHandler(this.colorBtn_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.drawingBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(594, 444);
+            this.panel1.TabIndex = 3;
+            // 
+            // drawingBox
+            // 
+            this.drawingBox.BackColor = System.Drawing.Color.White;
+            this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawingBox.Location = new System.Drawing.Point(0, 0);
+            this.drawingBox.Name = "drawingBox";
+            this.drawingBox.Size = new System.Drawing.Size(594, 444);
+            this.drawingBox.TabIndex = 1;
+            this.drawingBox.TabStop = false;
+            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Click);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
+            this.drawingBox.MouseLeave += new System.EventHandler(this.drawingBox_MouseLeave);
+            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
+            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
+            // 
+            // colorSelector
+            // 
+            this.colorSelector.AnyColor = true;
             // 
             // MainActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.mainTableLayout);
             this.Name = "MainActivity";
-            this.Text = "Graphics Demo";
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DrawingBox)).EndInit();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
+            this.Text = "Transformaciones lineales";
+            this.Resize += new System.EventHandler(this.MainActivity_Resize);
+            this.mainTableLayout.ResumeLayout(false);
+            this.optionsLayout.ResumeLayout(false);
+            this.optionsLayout.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.PictureBox DrawingBox;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Button scaleBtn;
-        private System.Windows.Forms.TextBox scaleTextBox;
-        private System.Windows.Forms.Button translateBtn;
-        private System.Windows.Forms.TextBox translateTextBox;
-        private System.Windows.Forms.Button rotateBtn;
-        private System.Windows.Forms.TextBox rotateTextBox;
-        private System.Windows.Forms.Button resetBtn;
+        private System.Windows.Forms.TableLayoutPanel mainTableLayout;
+        private System.Windows.Forms.PictureBox drawingBox;
+        private System.Windows.Forms.TableLayoutPanel optionsLayout;
+        private System.Windows.Forms.ColorDialog colorSelector;
+        private System.Windows.Forms.Button colorBtn;
+        private System.Windows.Forms.TextBox coordsLabel;
+        private System.Windows.Forms.TextBox label1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TextBox sizeXTextBox;
+        private System.Windows.Forms.TextBox sizeYTextBox;
+        private System.Windows.Forms.TextBox label2;
+        private System.Windows.Forms.TextBox label3;
+        private System.Windows.Forms.CheckBox autoResizeCheckbox;
+        private System.Windows.Forms.Button cleanBtn;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.NumericUpDown rotationValue;
+        private System.Windows.Forms.NumericUpDown homothesisValue;
+        private System.Windows.Forms.Button cleanTransformBtn;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.CheckBox rotationCheckbox;
+        private System.Windows.Forms.CheckBox homothesisCheckbox;
+        private System.Windows.Forms.CheckBox reflectionXCheckbox;
+        private System.Windows.Forms.CheckBox reflectionYCheckbox;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
 
