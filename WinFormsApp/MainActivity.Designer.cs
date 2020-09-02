@@ -53,6 +53,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.drawingBox = new System.Windows.Forms.PictureBox();
             this.colorSelector = new System.Windows.Forms.ColorDialog();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.animationsCheckbox = new System.Windows.Forms.CheckBox();
             this.mainTableLayout.SuspendLayout();
             this.optionsLayout.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -66,8 +68,7 @@
             // 
             this.mainTableLayout.ColumnCount = 2;
             this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
             this.mainTableLayout.Controls.Add(this.optionsLayout, 1, 0);
             this.mainTableLayout.Controls.Add(this.panel1, 0, 0);
             this.mainTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -80,6 +81,7 @@
             // 
             // optionsLayout
             // 
+            this.optionsLayout.AutoScroll = true;
             this.optionsLayout.ColumnCount = 1;
             this.optionsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.optionsLayout.Controls.Add(this.textBox2, 0, 9);
@@ -98,10 +100,12 @@
             this.optionsLayout.Controls.Add(this.textBox3, 0, 12);
             this.optionsLayout.Controls.Add(this.cleanBtn, 0, 5);
             this.optionsLayout.Controls.Add(this.colorBtn, 0, 4);
+            this.optionsLayout.Controls.Add(this.textBox4, 0, 16);
+            this.optionsLayout.Controls.Add(this.animationsCheckbox, 0, 17);
             this.optionsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.optionsLayout.Location = new System.Drawing.Point(603, 3);
+            this.optionsLayout.Location = new System.Drawing.Point(593, 3);
             this.optionsLayout.Name = "optionsLayout";
-            this.optionsLayout.RowCount = 17;
+            this.optionsLayout.RowCount = 19;
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -118,8 +122,10 @@
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.optionsLayout.Size = new System.Drawing.Size(194, 444);
+            this.optionsLayout.Size = new System.Drawing.Size(204, 444);
             this.optionsLayout.TabIndex = 2;
             // 
             // textBox2
@@ -131,21 +137,20 @@
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(194, 10);
+            this.textBox2.Size = new System.Drawing.Size(204, 10);
             this.textBox2.TabIndex = 18;
-            this.textBox2.Text = "---------------------------------------------------------------------------------" +
-    "------------";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox2.Text = "---------------------------------------------------------------------\r\n";
             this.textBox2.WordWrap = false;
             // 
             // coordsLabel
             // 
             this.coordsLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.coordsLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.coordsLabel.Location = new System.Drawing.Point(3, 3);
             this.coordsLabel.Multiline = true;
             this.coordsLabel.Name = "coordsLabel";
             this.coordsLabel.ReadOnly = true;
-            this.coordsLabel.Size = new System.Drawing.Size(188, 29);
+            this.coordsLabel.Size = new System.Drawing.Size(198, 29);
             this.coordsLabel.TabIndex = 1;
             this.coordsLabel.Text = "Coordenadas del mouse\r\n-";
             this.coordsLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -158,7 +163,7 @@
             this.label1.Multiline = true;
             this.label1.Name = "label1";
             this.label1.ReadOnly = true;
-            this.label1.Size = new System.Drawing.Size(188, 14);
+            this.label1.Size = new System.Drawing.Size(198, 14);
             this.label1.TabIndex = 2;
             this.label1.Text = "Tamaño del lienzo";
             this.label1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -173,7 +178,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 55);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(194, 25);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(204, 25);
             this.flowLayoutPanel1.TabIndex = 3;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -223,18 +228,15 @@
             // 
             // autoResizeCheckbox
             // 
-            this.autoResizeCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.autoResizeCheckbox.AutoSize = true;
             this.autoResizeCheckbox.Checked = true;
             this.autoResizeCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoResizeCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.autoResizeCheckbox.Location = new System.Drawing.Point(3, 83);
             this.autoResizeCheckbox.Name = "autoResizeCheckbox";
-            this.autoResizeCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.autoResizeCheckbox.Size = new System.Drawing.Size(198, 19);
             this.autoResizeCheckbox.TabIndex = 4;
             this.autoResizeCheckbox.Text = "Redimensionar automáticamente";
-            this.autoResizeCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.autoResizeCheckbox.UseVisualStyleBackColor = true;
             this.autoResizeCheckbox.CheckedChanged += new System.EventHandler(this.autoResizeCheckbox_CheckedChanged);
             // 
@@ -247,11 +249,9 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(194, 10);
+            this.textBox1.Size = new System.Drawing.Size(204, 10);
             this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "---------------------------------------------------------------------------------" +
-    "------------";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox1.Text = "---------------------------------------------------------------------\r\n";
             this.textBox1.WordWrap = false;
             // 
             // rotationValue
@@ -270,7 +270,7 @@
             0,
             0});
             this.rotationValue.Name = "rotationValue";
-            this.rotationValue.Size = new System.Drawing.Size(188, 20);
+            this.rotationValue.Size = new System.Drawing.Size(198, 20);
             this.rotationValue.TabIndex = 9;
             this.rotationValue.ValueChanged += new System.EventHandler(this.refreshScreen);
             // 
@@ -290,7 +290,7 @@
             0,
             0});
             this.homothesisValue.Name = "homothesisValue";
-            this.homothesisValue.Size = new System.Drawing.Size(188, 20);
+            this.homothesisValue.Size = new System.Drawing.Size(198, 20);
             this.homothesisValue.TabIndex = 10;
             this.homothesisValue.Value = new decimal(new int[] {
             1,
@@ -304,7 +304,7 @@
             this.cleanTransformBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cleanTransformBtn.Location = new System.Drawing.Point(3, 358);
             this.cleanTransformBtn.Name = "cleanTransformBtn";
-            this.cleanTransformBtn.Size = new System.Drawing.Size(188, 29);
+            this.cleanTransformBtn.Size = new System.Drawing.Size(198, 29);
             this.cleanTransformBtn.TabIndex = 13;
             this.cleanTransformBtn.Text = "Deshacer transformaciones";
             this.cleanTransformBtn.UseVisualStyleBackColor = true;
@@ -316,7 +316,7 @@
             this.rotationCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rotationCheckbox.Location = new System.Drawing.Point(3, 213);
             this.rotationCheckbox.Name = "rotationCheckbox";
-            this.rotationCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.rotationCheckbox.Size = new System.Drawing.Size(198, 19);
             this.rotationCheckbox.TabIndex = 14;
             this.rotationCheckbox.Text = "Aplicar ángulo de rotación";
             this.rotationCheckbox.UseVisualStyleBackColor = true;
@@ -328,7 +328,7 @@
             this.homothesisCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.homothesisCheckbox.Location = new System.Drawing.Point(3, 273);
             this.homothesisCheckbox.Name = "homothesisCheckbox";
-            this.homothesisCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.homothesisCheckbox.Size = new System.Drawing.Size(198, 19);
             this.homothesisCheckbox.TabIndex = 15;
             this.homothesisCheckbox.Text = "Aplicar factor de homotecia";
             this.homothesisCheckbox.UseVisualStyleBackColor = true;
@@ -340,11 +340,10 @@
             this.reflectionXCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reflectionXCheckbox.Location = new System.Drawing.Point(3, 308);
             this.reflectionXCheckbox.Name = "reflectionXCheckbox";
-            this.reflectionXCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.reflectionXCheckbox.Size = new System.Drawing.Size(198, 19);
             this.reflectionXCheckbox.TabIndex = 16;
             this.reflectionXCheckbox.Text = "Aplicar reflexión en X";
             this.reflectionXCheckbox.UseVisualStyleBackColor = true;
-            this.reflectionXCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen);
             // 
             // reflectionYCheckbox
             // 
@@ -352,11 +351,10 @@
             this.reflectionYCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reflectionYCheckbox.Location = new System.Drawing.Point(3, 333);
             this.reflectionYCheckbox.Name = "reflectionYCheckbox";
-            this.reflectionYCheckbox.Size = new System.Drawing.Size(188, 19);
+            this.reflectionYCheckbox.Size = new System.Drawing.Size(198, 19);
             this.reflectionYCheckbox.TabIndex = 17;
             this.reflectionYCheckbox.Text = "Aplicar reflexión en Y";
             this.reflectionYCheckbox.UseVisualStyleBackColor = true;
-            this.reflectionYCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen);
             // 
             // textBox3
             // 
@@ -367,11 +365,9 @@
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(194, 10);
+            this.textBox3.Size = new System.Drawing.Size(204, 10);
             this.textBox3.TabIndex = 19;
-            this.textBox3.Text = "---------------------------------------------------------------------------------" +
-    "------------";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox3.Text = "---------------------------------------------------------------------\r\n";
             this.textBox3.WordWrap = false;
             // 
             // cleanBtn
@@ -379,7 +375,7 @@
             this.cleanBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cleanBtn.Location = new System.Drawing.Point(3, 143);
             this.cleanBtn.Name = "cleanBtn";
-            this.cleanBtn.Size = new System.Drawing.Size(188, 29);
+            this.cleanBtn.Size = new System.Drawing.Size(198, 29);
             this.cleanBtn.TabIndex = 5;
             this.cleanBtn.Text = "Limpiar lienzo";
             this.cleanBtn.UseVisualStyleBackColor = true;
@@ -388,10 +384,11 @@
             // colorBtn
             // 
             this.colorBtn.BackColor = System.Drawing.Color.Black;
+            this.colorBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.colorBtn.ForeColor = System.Drawing.Color.White;
             this.colorBtn.Location = new System.Drawing.Point(3, 108);
             this.colorBtn.Name = "colorBtn";
-            this.colorBtn.Size = new System.Drawing.Size(188, 29);
+            this.colorBtn.Size = new System.Drawing.Size(198, 29);
             this.colorBtn.TabIndex = 0;
             this.colorBtn.Text = "Color de lápiz";
             this.colorBtn.UseVisualStyleBackColor = false;
@@ -404,7 +401,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(594, 444);
+            this.panel1.Size = new System.Drawing.Size(584, 444);
             this.panel1.TabIndex = 3;
             // 
             // drawingBox
@@ -415,7 +412,7 @@
             this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingBox.Location = new System.Drawing.Point(0, 0);
             this.drawingBox.Name = "drawingBox";
-            this.drawingBox.Size = new System.Drawing.Size(594, 444);
+            this.drawingBox.Size = new System.Drawing.Size(584, 444);
             this.drawingBox.TabIndex = 1;
             this.drawingBox.TabStop = false;
             this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Click);
@@ -427,6 +424,31 @@
             // colorSelector
             // 
             this.colorSelector.AnyColor = true;
+            // 
+            // textBox4
+            // 
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox4.Location = new System.Drawing.Point(0, 390);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(204, 10);
+            this.textBox4.TabIndex = 20;
+            this.textBox4.Text = "---------------------------------------------------------------------\r\n";
+            this.textBox4.WordWrap = false;
+            // 
+            // animationsCheckbox
+            // 
+            this.animationsCheckbox.AutoSize = true;
+            this.animationsCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.animationsCheckbox.Location = new System.Drawing.Point(3, 403);
+            this.animationsCheckbox.Name = "animationsCheckbox";
+            this.animationsCheckbox.Size = new System.Drawing.Size(198, 19);
+            this.animationsCheckbox.TabIndex = 21;
+            this.animationsCheckbox.Text = "Activar animaciones";
+            this.animationsCheckbox.UseVisualStyleBackColor = true;
             // 
             // MainActivity
             // 
@@ -477,6 +499,8 @@
         private System.Windows.Forms.CheckBox reflectionXCheckbox;
         private System.Windows.Forms.CheckBox reflectionYCheckbox;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.CheckBox animationsCheckbox;
     }
 }
 

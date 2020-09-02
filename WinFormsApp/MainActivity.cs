@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -29,10 +30,10 @@ namespace WinFormsApp
 
         private void drawingBox_Click(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-
+            GraphicsPath path;
             Matrix transformations = new Matrix();
+            Graphics world = e.Graphics;
+            world.SmoothingMode = SmoothingMode.AntiAlias;
 
             if (rotationCheckbox.Checked)
             {
@@ -44,33 +45,12 @@ namespace WinFormsApp
                 transformations.Scale(Convert.ToSingle(homothesisValue.Value), Convert.ToSingle(homothesisValue.Value));
             }
 
-            GraphicsPath path;
-
             foreach (Stroke stroke in strokes.Where(x => x.strokes.Count > 1))
             {
-                Matrix reflection;
                 path = new GraphicsPath();
                 path.AddLines(stroke.strokes.ToArray());
                 path.Transform(transformations);
-
-                if (reflectionXCheckbox.Checked)
-                {
-                    reflection = new Matrix(-1, 0, 0, 1, 0, 0);
-                }
-                else if (reflectionYCheckbox.Checked)
-                {
-                    reflection = new Matrix(1, 0, 0, -1, 0, 0);
-                }
-                else if (reflectionXCheckbox.Checked && reflectionYCheckbox.Checked)
-                {
-                    reflection = new Matrix(-1, 0, 0, -1, 0, 0);
-                } else
-                {
-                    reflection = new Matrix(1, 0, 0, 1, 0, 0);
-                }
-                path.Transform(reflection);
-
-                g.DrawPath(new Pen(stroke.color, 2), path);
+                world.DrawPath(new Pen(stroke.color, 2), path);
             }
         }
 
@@ -196,6 +176,12 @@ namespace WinFormsApp
         private void refreshScreen(object sender, EventArgs e)
         {
             Refresh();
+        }
+
+        private decimal easeInOutQuad(decimal t, decimal b, decimal c, decimal d)
+        {
+            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+            return -c / 2 * ((--t) * (t - 2) - 1) + b;
         }
     }
 }
