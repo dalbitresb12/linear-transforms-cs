@@ -7,88 +7,76 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
-struct Stroke
-{
-    public List<Point> strokes;
-    public Color color;
-}
-
 namespace WinFormsApp
 {
     public partial class MainActivity : Form
     {
         private bool isDrawing = false;
-        private readonly List<Stroke> strokes = new List<Stroke>();
-        private Stroke currStroke;
+        private bool transformationsEnabled = false;
+        private readonly List<List<Point>> strokes = new List<List<Point>>();
+        private List<Point> currStroke;
 
         public MainActivity()
         {
             InitializeComponent();
-            sizeXTextBox.Text = drawingBox.Size.Width.ToString();
-            sizeYTextBox.Text = drawingBox.Size.Height.ToString();
+            refreshSizeValues_Helper();
         }
 
         private void drawingBox_Click(object sender, PaintEventArgs e)
         {
-            GraphicsPath path;
-            Matrix transformations = new Matrix();
             Graphics world = e.Graphics;
             world.SmoothingMode = SmoothingMode.AntiAlias;
-
-            if (rotationCheckbox.Checked)
+            
+            GraphicsPath path = new GraphicsPath();
+            foreach (List<Point> stroke in strokes.Where(x => x.Count >1))
             {
-                transformations.Rotate(Convert.ToSingle(rotationValue.Value));
+                GraphicsPath g = new GraphicsPath();
+                g.AddLines(stroke.ToArray());
+                path.AddPath(g, false);
             }
 
-            if (homothesisCheckbox.Checked)
+            if (transformationsEnabled)
             {
-                transformations.Scale(Convert.ToSingle(homothesisValue.Value), Convert.ToSingle(homothesisValue.Value));
-            }
-
-            foreach (Stroke stroke in strokes.Where(x => x.strokes.Count > 1))
-            {
-                path = new GraphicsPath();
-                path.AddLines(stroke.strokes.ToArray());
-                path.Transform(transformations);
-                world.DrawPath(new Pen(stroke.color, 2), path);
-            }
-        }
-
-        private void colorBtn_Click(object sender, EventArgs e)
-        {
-            if (colorSelector.ShowDialog() == DialogResult.OK)
-            {
-                colorBtn.BackColor = colorSelector.Color;
-                if (colorSelector.Color == Color.Black)
+                Matrix transforms = new Matrix();
+                RectangleF boundRect = path.GetBounds();
+                //transforms.Translate(-(boundRect.Width / 2), -(boundRect.Height / 2));
+                if (rotationCheckbox.Checked)
                 {
-                    colorBtn.ForeColor = Color.White;
+                    transforms.RotateAt(Convert.ToSingle(rotationValue.Value), new Point((int)(boundRect.Width / 2), (int)(boundRect.Height / 2)), MatrixOrder.Append);
                 }
-                else
+
+                if (homothesisCheckbox.Checked)
                 {
-                    colorBtn.ForeColor = Color.Black;
+                    transforms.Scale(Convert.ToSingle(homothesisValue.Value), Convert.ToSingle(homothesisValue.Value), MatrixOrder.Append);
                 }
+                //transforms.Translate(boundRect.Width / 2, boundRect.Height / 2);
+                foreach (decimal x in transforms.Elements)
+                {
+                    Debug.Write(x.ToString() + " ");
+                }
+                Debug.Write(Environment.NewLine);
+
+                path.Transform(transforms);
             }
+
+            world.DrawPath(new Pen(Color.Black, 2), path);
         }
 
         private void drawingBox_MouseDown(object sender, MouseEventArgs e)
         {
-            isDrawing = true;
-            currStroke = new Stroke
+            if (!transformationsEnabled)
             {
-                strokes = new List<Point>
-            {
-                e.Location
-            },
-                color = colorSelector.Color
-            };
-            strokes.Add(currStroke);
+                isDrawing = true;
+                currStroke = new List<Point>();
+                strokes.Add(currStroke);
+            }
         }
 
         private void drawingBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDrawing)
             {
-                currStroke.strokes.Add(e.Location);
+                currStroke.Add(e.Location);
                 Refresh();
             }
 
@@ -100,32 +88,24 @@ namespace WinFormsApp
             isDrawing = false;
         }
 
-        private void sizeXTextBox_TextChanged(object sender, EventArgs e)
+        private void sizeValues_ValueChanged(object sender, EventArgs e)
         {
             Size size = drawingBox.Size;
-            if (Int32.TryParse(sizeXTextBox.Text, out int width))
-            {
-                size.Width = width;
-                drawingBox.Size = size;
-            }
+            size.Width = (int)sizeXValue.Value;
+            size.Height = (int)sizeYValue.Value;
+            drawingBox.Size = size;
             Refresh();
         }
 
-        private void sizeYTextBox_TextChanged(object sender, EventArgs e)
+        private void refreshSizeValues_Helper()
         {
-            Size size = drawingBox.Size;
-            if (Int32.TryParse(sizeYTextBox.Text, out int height))
-            {
-                size.Height = height;
-                drawingBox.Size = size;
-            }
-            Refresh();
+            sizeXValue.Value = drawingBox.Size.Width;
+            sizeYValue.Value = drawingBox.Size.Height;
         }
 
         private void MainActivity_Resize(object sender, EventArgs e)
         {
-            sizeXTextBox.Text = drawingBox.Size.Width.ToString();
-            sizeYTextBox.Text = drawingBox.Size.Height.ToString();
+            refreshSizeValues_Helper();
             Refresh();
         }
 
@@ -134,22 +114,22 @@ namespace WinFormsApp
             Size size;
             if (autoResizeCheckbox.Checked)
             {
-                sizeXTextBox.ReadOnly = true;
-                sizeYTextBox.ReadOnly = true;
+                sizeXValue.ReadOnly = true;
+                sizeYValue.ReadOnly = true;
                 drawingBox.Dock = DockStyle.Fill;
             }
             else
             {
-                sizeXTextBox.ReadOnly = false;
-                sizeYTextBox.ReadOnly = false;
+                sizeXValue.ReadOnly = false;
+                sizeYValue.ReadOnly = false;
 
                 size = drawingBox.Size;
                 drawingBox.Dock = DockStyle.None;
                 drawingBox.Size = size;
             }
 
-            sizeXTextBox.Text = drawingBox.Size.Width.ToString();
-            sizeYTextBox.Text = drawingBox.Size.Height.ToString();
+            refreshSizeValues_Helper();
+            Refresh();
         }
 
         private void drawingBox_MouseLeave(object sender, EventArgs e)
@@ -165,15 +145,33 @@ namespace WinFormsApp
 
         private void cleanTransformBtn_Click(object sender, EventArgs e)
         {
+            transformationsEnabled = false;
             rotationCheckbox.Checked = false;
             rotationValue.Value = 0;
             homothesisCheckbox.Checked = false;
             homothesisValue.Value = 1;
             reflectionXCheckbox.Checked = false;
             reflectionYCheckbox.Checked = false;
+            drawingBox.Cursor = Cursors.Hand;
         }
 
-        private void refreshScreen(object sender, EventArgs e)
+        private void enableTransformations_Event(object sender, EventArgs e)
+        {
+            CheckBox box = (CheckBox)sender;
+            if (box.Checked)
+            {
+                transformationsEnabled = true;
+                drawingBox.Cursor = Cursors.No;
+            }
+            else
+            {
+                transformationsEnabled = false;
+                drawingBox.Cursor = Cursors.Hand;
+            }
+            Refresh();
+        }
+
+        private void refreshScreen_Event(object sender, EventArgs e)
         {
             Refresh();
         }
