@@ -8,13 +8,13 @@ using System.Linq;
 using System.Windows.Forms;
 
 namespace WinFormsApp {
-    public partial class MainActivity : Form {
+    public partial class mainActivity : Form {
         private bool isDrawing = false;
         private bool transformationsEnabled = false;
         private readonly List<List<Point>> strokes = new List<List<Point>>();
         private List<Point> currStroke;
 
-        public MainActivity() {
+        public mainActivity() {
             InitializeComponent();
             refreshSizeValues_Helper();
         }
@@ -87,11 +87,6 @@ namespace WinFormsApp {
             sizeYValue.Value = drawingBox.Size.Height;
         }
 
-        private void MainActivity_Resize(object sender, EventArgs e) {
-            refreshSizeValues_Helper();
-            Refresh();
-        }
-
         private void autoResizeCheckbox_CheckedChanged(object sender, EventArgs e) {
             Size size;
             if (autoResizeCheckbox.Checked) {
@@ -147,10 +142,9 @@ namespace WinFormsApp {
             Refresh();
         }
 
-        private decimal easeInOutQuad(decimal t, decimal b, decimal c, decimal d) {
-            if ((t /= d / 2) < 1)
-                return c / 2 * t * t + b;
-            return -c / 2 * ((--t) * (t - 2) - 1) + b;
+        private void mainActivity_Resize(object sender, EventArgs e) {
+            refreshSizeValues_Helper();
+            Refresh();
         }
     }
 }

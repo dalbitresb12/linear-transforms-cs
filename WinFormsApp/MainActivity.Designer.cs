@@ -1,5 +1,5 @@
 ﻿namespace WinFormsApp {
-    partial class MainActivity {
+    partial class mainActivity {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -426,28 +426,24 @@
             // 
             this.drawingBox.BackColor = System.Drawing.Color.White;
             this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingBox.Location = new System.Drawing.Point(0, 0);
             this.drawingBox.Name = "drawingBox";
             this.drawingBox.Size = new System.Drawing.Size(584, 444);
             this.drawingBox.TabIndex = 1;
             this.drawingBox.TabStop = false;
-            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Click);
-            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
             this.drawingBox.MouseLeave += new System.EventHandler(this.drawingBox_MouseLeave);
-            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
-            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
-            // MainActivity
+            // mainActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainTableLayout);
-            this.Name = "MainActivity";
+            this.Name = "mainActivity";
             this.Text = "Transformaciones lineales";
-            this.Resize += new System.EventHandler(this.MainActivity_Resize);
+            this.Resize += new System.EventHandler(this.mainActivity_Resize);
             this.mainTableLayout.ResumeLayout(false);
             this.optionsLayout.ResumeLayout(false);
             this.optionsLayout.PerformLayout();
