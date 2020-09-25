@@ -10,8 +10,6 @@ namespace WinFormsApp {
     public partial class mainActivity : Form {
         private bool shouldDraw = true;
         private bool transformationsEnabled = false;
-        private decimal rotationAngle;
-        private decimal homothesis;
         private readonly List<Point> pathPoints = new List<Point>() {
             new Point(0, 0),
             new Point(60, 60),
@@ -22,16 +20,16 @@ namespace WinFormsApp {
 
         public mainActivity() {
             InitializeComponent();
-
-            rotationAngle = rotationValue.Value;
-            homothesis = homothesisValue.Value;
-
-            Refresh();
         }
 
         private void drawingBox_Paint(object sender, PaintEventArgs e) {
             Graphics world = e.Graphics;
             world.SmoothingMode = SmoothingMode.AntiAlias;
+
+            decimal rotationAngle = rotationValue.Value;
+            decimal homothesis = homothesisValue.Value;
+            decimal translateX = translateXValue.Value;
+            decimal translateY = translateYValue.Value;
 
             Size drawingBoxSize = drawingBox.Size;
             GraphicsPath xAxis = new GraphicsPath();
@@ -58,7 +56,10 @@ namespace WinFormsApp {
 
                 if (homothesisCheckbox.Checked)
                     tf.Scale((float)homothesis, (float)homothesis, MatrixOrder.Append);
-                
+
+                if (translateCheckbox.Checked)
+                    tf.Translate((float)translateX, -(float)translateY, MatrixOrder.Append);
+
                 path.Transform(tf);
             }
 
@@ -100,43 +101,63 @@ namespace WinFormsApp {
         }
 
         private void numeric_ValueChanged(object sender, EventArgs e) {
+            CheckBox checkbox;
             NumericUpDown textBox = (NumericUpDown)sender;
             switch (textBox.Name) {
                 case "rotationValue":
                     if (textBox.Value > (decimal)359.9 || textBox.Value < (decimal)-359.9)
                         textBox.Value = 0;
-                    rotationAngle = textBox.Value;
 
-                    if (rotationCheckbox.Checked)
-                        Refresh();
+                    checkbox = rotationCheckbox;
                     break;
                 case "homothesisValue":
                     if (textBox.Value == 0)
                         shouldDraw = false;
                     else
                         shouldDraw = true;
-                    homothesis = textBox.Value;
 
-                    if (homothesisCheckbox.Checked)
-                        Refresh();
+                    checkbox = homothesisCheckbox;
+                    break;
+                case "translateXValue":
+                case "translateYValue":
+                    checkbox = translateCheckbox;
+                    break;
+                default:
+                    checkbox = new CheckBox();
                     break;
             }
+
+            if (checkbox.Checked)
+                Refresh();
         }
 
         private void applyTransformations_CheckedChanged(object sender, EventArgs e) {
             CheckBox checkBox = (CheckBox)sender;
             if (checkBox.Checked && !transformationsEnabled) {
                 transformationsEnabled = true;
-            } else if (transformationsEnabled && !rotationCheckbox.Checked && !homothesisCheckbox.Checked && !reflectionXCheckbox.Checked && !reflectionYCheckbox.Checked) {
+            } else if (transformationsEnabled && !isAnyChecked()) {
                 transformationsEnabled = false;
             }
             Refresh();
+        }
+
+        private bool isAnyChecked() {
+            return (
+                rotationCheckbox.Checked ||
+                homothesisCheckbox.Checked ||
+                reflectionXCheckbox.Checked ||
+                reflectionYCheckbox.Checked ||
+                translateCheckbox.Checked
+            );
         }
 
         private void cleanTransformBtn_Click(object sender, EventArgs e) {
             transformationsEnabled = false;
             reflectionXCheckbox.Checked = false;
             reflectionYCheckbox.Checked = false;
+            translateCheckbox.Checked = false;
+            translateXValue.Value = 0;
+            translateYValue.Value = 0;
             rotationCheckbox.Checked = false;
             rotationValue.Value = 0;
             homothesisCheckbox.Checked = false;

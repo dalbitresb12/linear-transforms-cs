@@ -28,7 +28,6 @@
             this.drawingBox = new System.Windows.Forms.PictureBox();
             this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.openDrawingBtn = new System.Windows.Forms.Button();
-            this.rotationValue = new System.Windows.Forms.NumericUpDown();
             this.homothesisValue = new System.Windows.Forms.NumericUpDown();
             this.cleanTransformBtn = new System.Windows.Forms.Button();
             this.rotationCheckbox = new System.Windows.Forms.CheckBox();
@@ -36,19 +35,29 @@
             this.reflectionXCheckbox = new System.Windows.Forms.CheckBox();
             this.reflectionYCheckbox = new System.Windows.Forms.CheckBox();
             this.cleanBtn = new System.Windows.Forms.Button();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.matrixLayout = new System.Windows.Forms.TableLayoutPanel();
             this.matrix11 = new System.Windows.Forms.TextBox();
             this.matrix12 = new System.Windows.Forms.TextBox();
             this.matrix22 = new System.Windows.Forms.TextBox();
             this.matrix21 = new System.Windows.Forms.TextBox();
+            this.rotationValue = new System.Windows.Forms.NumericUpDown();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.translateXValue = new System.Windows.Forms.NumericUpDown();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.translateYValue = new System.Windows.Forms.NumericUpDown();
+            this.translateCheckbox = new System.Windows.Forms.CheckBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.optionsLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).BeginInit();
             this.matrixLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.translateXValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTableLayout
@@ -95,18 +104,20 @@
             this.optionsLayout.ColumnCount = 1;
             this.optionsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214F));
             this.optionsLayout.Controls.Add(this.openDrawingBtn, 0, 0);
-            this.optionsLayout.Controls.Add(this.rotationValue, 0, 2);
-            this.optionsLayout.Controls.Add(this.homothesisValue, 0, 4);
-            this.optionsLayout.Controls.Add(this.cleanTransformBtn, 0, 8);
-            this.optionsLayout.Controls.Add(this.rotationCheckbox, 0, 3);
-            this.optionsLayout.Controls.Add(this.homothesisCheckbox, 0, 5);
-            this.optionsLayout.Controls.Add(this.reflectionXCheckbox, 0, 6);
-            this.optionsLayout.Controls.Add(this.reflectionYCheckbox, 0, 7);
+            this.optionsLayout.Controls.Add(this.homothesisValue, 0, 6);
+            this.optionsLayout.Controls.Add(this.cleanTransformBtn, 0, 10);
+            this.optionsLayout.Controls.Add(this.rotationCheckbox, 0, 5);
+            this.optionsLayout.Controls.Add(this.homothesisCheckbox, 0, 7);
+            this.optionsLayout.Controls.Add(this.reflectionXCheckbox, 0, 8);
+            this.optionsLayout.Controls.Add(this.reflectionYCheckbox, 0, 9);
             this.optionsLayout.Controls.Add(this.cleanBtn, 0, 1);
-            this.optionsLayout.Controls.Add(this.matrixLayout, 0, 9);
+            this.optionsLayout.Controls.Add(this.matrixLayout, 0, 11);
+            this.optionsLayout.Controls.Add(this.rotationValue, 0, 4);
+            this.optionsLayout.Controls.Add(this.flowLayoutPanel1, 0, 2);
+            this.optionsLayout.Controls.Add(this.translateCheckbox, 0, 3);
             this.optionsLayout.Location = new System.Drawing.Point(583, 3);
             this.optionsLayout.Name = "optionsLayout";
-            this.optionsLayout.RowCount = 10;
+            this.optionsLayout.RowCount = 12;
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -115,10 +126,10 @@
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.optionsLayout.Size = new System.Drawing.Size(214, 444);
             this.optionsLayout.TabIndex = 2;
@@ -130,30 +141,10 @@
             this.openDrawingBtn.Location = new System.Drawing.Point(3, 3);
             this.openDrawingBtn.Name = "openDrawingBtn";
             this.openDrawingBtn.Size = new System.Drawing.Size(208, 29);
-            this.openDrawingBtn.TabIndex = 22;
+            this.openDrawingBtn.TabIndex = 1;
             this.openDrawingBtn.Text = "Abrir dibujo";
             this.openDrawingBtn.UseVisualStyleBackColor = true;
             this.openDrawingBtn.Click += new System.EventHandler(this.openDrawingBtn_Click);
-            // 
-            // rotationValue
-            // 
-            this.rotationValue.DecimalPlaces = 2;
-            this.rotationValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rotationValue.Location = new System.Drawing.Point(3, 73);
-            this.rotationValue.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.rotationValue.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.rotationValue.Name = "rotationValue";
-            this.rotationValue.Size = new System.Drawing.Size(208, 20);
-            this.rotationValue.TabIndex = 9;
-            this.rotationValue.ValueChanged += new System.EventHandler(this.numeric_ValueChanged);
             // 
             // homothesisValue
             // 
@@ -164,7 +155,7 @@
             0,
             0,
             65536});
-            this.homothesisValue.Location = new System.Drawing.Point(3, 123);
+            this.homothesisValue.Location = new System.Drawing.Point(3, 173);
             this.homothesisValue.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -177,7 +168,7 @@
             -2147483648});
             this.homothesisValue.Name = "homothesisValue";
             this.homothesisValue.Size = new System.Drawing.Size(208, 20);
-            this.homothesisValue.TabIndex = 10;
+            this.homothesisValue.TabIndex = 7;
             this.homothesisValue.Value = new decimal(new int[] {
             1,
             0,
@@ -188,10 +179,10 @@
             // cleanTransformBtn
             // 
             this.cleanTransformBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cleanTransformBtn.Location = new System.Drawing.Point(3, 223);
+            this.cleanTransformBtn.Location = new System.Drawing.Point(3, 273);
             this.cleanTransformBtn.Name = "cleanTransformBtn";
             this.cleanTransformBtn.Size = new System.Drawing.Size(208, 29);
-            this.cleanTransformBtn.TabIndex = 13;
+            this.cleanTransformBtn.TabIndex = 11;
             this.cleanTransformBtn.Text = "Deshacer transformaciones";
             this.cleanTransformBtn.UseVisualStyleBackColor = true;
             this.cleanTransformBtn.Click += new System.EventHandler(this.cleanTransformBtn_Click);
@@ -199,10 +190,10 @@
             // rotationCheckbox
             // 
             this.rotationCheckbox.AutoSize = true;
-            this.rotationCheckbox.Location = new System.Drawing.Point(3, 98);
+            this.rotationCheckbox.Location = new System.Drawing.Point(3, 148);
             this.rotationCheckbox.Name = "rotationCheckbox";
             this.rotationCheckbox.Size = new System.Drawing.Size(149, 17);
-            this.rotationCheckbox.TabIndex = 14;
+            this.rotationCheckbox.TabIndex = 6;
             this.rotationCheckbox.Text = "Aplicar ángulo de rotación";
             this.rotationCheckbox.UseVisualStyleBackColor = true;
             this.rotationCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
@@ -210,10 +201,10 @@
             // homothesisCheckbox
             // 
             this.homothesisCheckbox.AutoSize = true;
-            this.homothesisCheckbox.Location = new System.Drawing.Point(3, 148);
+            this.homothesisCheckbox.Location = new System.Drawing.Point(3, 198);
             this.homothesisCheckbox.Name = "homothesisCheckbox";
             this.homothesisCheckbox.Size = new System.Drawing.Size(155, 17);
-            this.homothesisCheckbox.TabIndex = 15;
+            this.homothesisCheckbox.TabIndex = 8;
             this.homothesisCheckbox.Text = "Aplicar factor de homotecia";
             this.homothesisCheckbox.UseVisualStyleBackColor = true;
             this.homothesisCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
@@ -221,10 +212,10 @@
             // reflectionXCheckbox
             // 
             this.reflectionXCheckbox.AutoSize = true;
-            this.reflectionXCheckbox.Location = new System.Drawing.Point(3, 173);
+            this.reflectionXCheckbox.Location = new System.Drawing.Point(3, 223);
             this.reflectionXCheckbox.Name = "reflectionXCheckbox";
             this.reflectionXCheckbox.Size = new System.Drawing.Size(125, 17);
-            this.reflectionXCheckbox.TabIndex = 16;
+            this.reflectionXCheckbox.TabIndex = 9;
             this.reflectionXCheckbox.Text = "Aplicar reflexión en X";
             this.reflectionXCheckbox.UseVisualStyleBackColor = true;
             this.reflectionXCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
@@ -232,10 +223,10 @@
             // reflectionYCheckbox
             // 
             this.reflectionYCheckbox.AutoSize = true;
-            this.reflectionYCheckbox.Location = new System.Drawing.Point(3, 198);
+            this.reflectionYCheckbox.Location = new System.Drawing.Point(3, 248);
             this.reflectionYCheckbox.Name = "reflectionYCheckbox";
             this.reflectionYCheckbox.Size = new System.Drawing.Size(125, 17);
-            this.reflectionYCheckbox.TabIndex = 17;
+            this.reflectionYCheckbox.TabIndex = 10;
             this.reflectionYCheckbox.Text = "Aplicar reflexión en Y";
             this.reflectionYCheckbox.UseVisualStyleBackColor = true;
             this.reflectionYCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
@@ -247,14 +238,9 @@
             this.cleanBtn.Location = new System.Drawing.Point(3, 38);
             this.cleanBtn.Name = "cleanBtn";
             this.cleanBtn.Size = new System.Drawing.Size(208, 29);
-            this.cleanBtn.TabIndex = 5;
+            this.cleanBtn.TabIndex = 2;
             this.cleanBtn.Text = "Cerrar dibujo";
             this.cleanBtn.UseVisualStyleBackColor = true;
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
-            this.openFileDialog.Title = "Abrir dibujo";
             // 
             // matrixLayout
             // 
@@ -266,7 +252,7 @@
             this.matrixLayout.Controls.Add(this.matrix12, 1, 0);
             this.matrixLayout.Controls.Add(this.matrix22, 1, 1);
             this.matrixLayout.Controls.Add(this.matrix21, 0, 1);
-            this.matrixLayout.Location = new System.Drawing.Point(3, 258);
+            this.matrixLayout.Location = new System.Drawing.Point(3, 308);
             this.matrixLayout.Name = "matrixLayout";
             this.matrixLayout.RowCount = 2;
             this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -323,6 +309,118 @@
             this.matrix21.TabIndex = 5;
             this.matrix21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // rotationValue
+            // 
+            this.rotationValue.DecimalPlaces = 2;
+            this.rotationValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rotationValue.Location = new System.Drawing.Point(3, 123);
+            this.rotationValue.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.rotationValue.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.rotationValue.Name = "rotationValue";
+            this.rotationValue.Size = new System.Drawing.Size(208, 20);
+            this.rotationValue.TabIndex = 5;
+            this.rotationValue.ValueChanged += new System.EventHandler(this.numeric_ValueChanged);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.textBox1);
+            this.flowLayoutPanel1.Controls.Add(this.translateXValue);
+            this.flowLayoutPanel1.Controls.Add(this.textBox2);
+            this.flowLayoutPanel1.Controls.Add(this.translateYValue);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 70);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(214, 25);
+            this.flowLayoutPanel1.TabIndex = 24;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(20, 20);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "X:";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // translateXValue
+            // 
+            this.translateXValue.DecimalPlaces = 2;
+            this.translateXValue.Location = new System.Drawing.Point(29, 3);
+            this.translateXValue.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.translateXValue.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.translateXValue.Name = "translateXValue";
+            this.translateXValue.Size = new System.Drawing.Size(70, 20);
+            this.translateXValue.TabIndex = 3;
+            this.translateXValue.ValueChanged += new System.EventHandler(this.numeric_ValueChanged);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Location = new System.Drawing.Point(105, 3);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(20, 20);
+            this.textBox2.TabIndex = 4;
+            this.textBox2.Text = "Y:";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // translateYValue
+            // 
+            this.translateYValue.DecimalPlaces = 2;
+            this.translateYValue.Location = new System.Drawing.Point(131, 3);
+            this.translateYValue.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.translateYValue.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.translateYValue.Name = "translateYValue";
+            this.translateYValue.Size = new System.Drawing.Size(70, 20);
+            this.translateYValue.TabIndex = 5;
+            this.translateYValue.ValueChanged += new System.EventHandler(this.numeric_ValueChanged);
+            // 
+            // translateCheckbox
+            // 
+            this.translateCheckbox.AutoSize = true;
+            this.translateCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.translateCheckbox.Location = new System.Drawing.Point(3, 98);
+            this.translateCheckbox.Name = "translateCheckbox";
+            this.translateCheckbox.Size = new System.Drawing.Size(208, 19);
+            this.translateCheckbox.TabIndex = 25;
+            this.translateCheckbox.Text = "Aplicar traslación";
+            this.translateCheckbox.UseVisualStyleBackColor = true;
+            this.translateCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.Title = "Abrir dibujo";
+            // 
             // mainActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -337,10 +435,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.optionsLayout.ResumeLayout(false);
             this.optionsLayout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).EndInit();
             this.matrixLayout.ResumeLayout(false);
             this.matrixLayout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.translateXValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -366,5 +468,11 @@
         private System.Windows.Forms.TextBox matrix12;
         private System.Windows.Forms.TextBox matrix22;
         private System.Windows.Forms.TextBox matrix21;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.NumericUpDown translateXValue;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.NumericUpDown translateYValue;
+        private System.Windows.Forms.CheckBox translateCheckbox;
     }
 }
