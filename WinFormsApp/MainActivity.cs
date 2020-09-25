@@ -79,6 +79,8 @@ namespace WinFormsApp {
             matrix12.Text = matrixValues[1].ToString();
             matrix21.Text = matrixValues[2].ToString();
             matrix22.Text = matrixValues[3].ToString();
+            matrix31.Text = matrixValues[4].ToString();
+            matrix32.Text = matrixValues[5].ToString();
         }
 
         private void refreshScreen_Event(object sender, EventArgs e) =>

@@ -48,6 +48,11 @@
             this.translateYValue = new System.Windows.Forms.NumericUpDown();
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.matrix31 = new System.Windows.Forms.TextBox();
+            this.matrix32 = new System.Windows.Forms.TextBox();
+            this.matrix13 = new System.Windows.Forms.TextBox();
+            this.matrix23 = new System.Windows.Forms.TextBox();
+            this.matrix33 = new System.Windows.Forms.TextBox();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
@@ -244,20 +249,25 @@
             // 
             // matrixLayout
             // 
-            this.matrixLayout.ColumnCount = 2;
-            this.matrixLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.matrixLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.matrixLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.matrixLayout.ColumnCount = 3;
+            this.matrixLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.matrixLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.matrixLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.matrixLayout.Controls.Add(this.matrix32, 0, 2);
+            this.matrixLayout.Controls.Add(this.matrix31, 0, 2);
             this.matrixLayout.Controls.Add(this.matrix11, 0, 0);
             this.matrixLayout.Controls.Add(this.matrix12, 1, 0);
             this.matrixLayout.Controls.Add(this.matrix22, 1, 1);
             this.matrixLayout.Controls.Add(this.matrix21, 0, 1);
+            this.matrixLayout.Controls.Add(this.matrix13, 2, 0);
+            this.matrixLayout.Controls.Add(this.matrix23, 2, 1);
+            this.matrixLayout.Controls.Add(this.matrix33, 2, 2);
             this.matrixLayout.Location = new System.Drawing.Point(3, 308);
             this.matrixLayout.Name = "matrixLayout";
-            this.matrixLayout.RowCount = 2;
-            this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.matrixLayout.RowCount = 3;
+            this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.matrixLayout.Size = new System.Drawing.Size(208, 70);
             this.matrixLayout.TabIndex = 23;
             // 
@@ -269,7 +279,7 @@
             this.matrix11.Multiline = true;
             this.matrix11.Name = "matrix11";
             this.matrix11.ReadOnly = true;
-            this.matrix11.Size = new System.Drawing.Size(98, 29);
+            this.matrix11.Size = new System.Drawing.Size(63, 17);
             this.matrix11.TabIndex = 0;
             this.matrix11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -277,11 +287,11 @@
             // 
             this.matrix12.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.matrix12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matrix12.Location = new System.Drawing.Point(107, 3);
+            this.matrix12.Location = new System.Drawing.Point(72, 3);
             this.matrix12.Multiline = true;
             this.matrix12.Name = "matrix12";
             this.matrix12.ReadOnly = true;
-            this.matrix12.Size = new System.Drawing.Size(98, 29);
+            this.matrix12.Size = new System.Drawing.Size(63, 17);
             this.matrix12.TabIndex = 1;
             this.matrix12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -289,11 +299,11 @@
             // 
             this.matrix22.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.matrix22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matrix22.Location = new System.Drawing.Point(107, 38);
+            this.matrix22.Location = new System.Drawing.Point(72, 26);
             this.matrix22.Multiline = true;
             this.matrix22.Name = "matrix22";
             this.matrix22.ReadOnly = true;
-            this.matrix22.Size = new System.Drawing.Size(98, 29);
+            this.matrix22.Size = new System.Drawing.Size(63, 17);
             this.matrix22.TabIndex = 4;
             this.matrix22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -301,11 +311,11 @@
             // 
             this.matrix21.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.matrix21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matrix21.Location = new System.Drawing.Point(3, 38);
+            this.matrix21.Location = new System.Drawing.Point(3, 26);
             this.matrix21.Multiline = true;
             this.matrix21.Name = "matrix21";
             this.matrix21.ReadOnly = true;
-            this.matrix21.Size = new System.Drawing.Size(98, 29);
+            this.matrix21.Size = new System.Drawing.Size(63, 17);
             this.matrix21.TabIndex = 5;
             this.matrix21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -421,6 +431,69 @@
             this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.Title = "Abrir dibujo";
             // 
+            // matrix31
+            // 
+            this.matrix31.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.matrix31.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matrix31.Location = new System.Drawing.Point(3, 49);
+            this.matrix31.Multiline = true;
+            this.matrix31.Name = "matrix31";
+            this.matrix31.ReadOnly = true;
+            this.matrix31.Size = new System.Drawing.Size(63, 18);
+            this.matrix31.TabIndex = 6;
+            this.matrix31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // matrix32
+            // 
+            this.matrix32.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.matrix32.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matrix32.Location = new System.Drawing.Point(72, 49);
+            this.matrix32.Multiline = true;
+            this.matrix32.Name = "matrix32";
+            this.matrix32.ReadOnly = true;
+            this.matrix32.Size = new System.Drawing.Size(63, 18);
+            this.matrix32.TabIndex = 7;
+            this.matrix32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // matrix13
+            // 
+            this.matrix13.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.matrix13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matrix13.Location = new System.Drawing.Point(141, 3);
+            this.matrix13.Multiline = true;
+            this.matrix13.Name = "matrix13";
+            this.matrix13.ReadOnly = true;
+            this.matrix13.Size = new System.Drawing.Size(64, 17);
+            this.matrix13.TabIndex = 8;
+            this.matrix13.Text = "0";
+            this.matrix13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // matrix23
+            // 
+            this.matrix23.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.matrix23.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matrix23.Location = new System.Drawing.Point(141, 26);
+            this.matrix23.Multiline = true;
+            this.matrix23.Name = "matrix23";
+            this.matrix23.ReadOnly = true;
+            this.matrix23.Size = new System.Drawing.Size(64, 17);
+            this.matrix23.TabIndex = 9;
+            this.matrix23.Text = "0";
+            this.matrix23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // matrix33
+            // 
+            this.matrix33.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.matrix33.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matrix33.Location = new System.Drawing.Point(141, 49);
+            this.matrix33.Multiline = true;
+            this.matrix33.Name = "matrix33";
+            this.matrix33.ReadOnly = true;
+            this.matrix33.Size = new System.Drawing.Size(64, 18);
+            this.matrix33.TabIndex = 10;
+            this.matrix33.Text = "1";
+            this.matrix33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // mainActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -474,5 +547,10 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.NumericUpDown translateYValue;
         private System.Windows.Forms.CheckBox translateCheckbox;
+        private System.Windows.Forms.TextBox matrix32;
+        private System.Windows.Forms.TextBox matrix31;
+        private System.Windows.Forms.TextBox matrix13;
+        private System.Windows.Forms.TextBox matrix23;
+        private System.Windows.Forms.TextBox matrix33;
     }
 }
