@@ -3,24 +3,16 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text.Json;
 using System.Windows.Forms;
 
 namespace WinFormsApp {
     public partial class mainActivity : Form {
         private bool shouldDraw = true;
         private bool transformationsEnabled = false;
-        private readonly List<Point> pathPoints = new List<Point>() {
-            new Point(0, 0),
-            new Point(60, 60),
-            new Point(60, 40),
-            new Point(40, 60),
-            new Point(60, 60)
-        };
+        private readonly List<Point> pathPoints = new List<Point>();
 
-        public mainActivity() {
+        public mainActivity() =>
             InitializeComponent();
-        }
 
         private void drawingBox_Paint(object sender, PaintEventArgs e) {
             Graphics world = e.Graphics;
@@ -63,7 +55,7 @@ namespace WinFormsApp {
                 path.Transform(tf);
             }
 
-            showMatrix(tf);
+            updateMatrixValues(tf);
 
             world.TranslateTransform(drawingBoxSize.Width / 2, drawingBoxSize.Height / 2);
             world.DrawPath(new Pen(Color.Blue, 2), xAxis);
@@ -73,7 +65,7 @@ namespace WinFormsApp {
                 world.DrawPath(new Pen(Color.Black, 2), path);
         }
 
-        private void showMatrix(Matrix matrix) {
+        private void updateMatrixValues(Matrix matrix) {
             List<float> matrixValues = matrix.Elements.ToList();
             matrix11.Text = matrixValues[0].ToString();
             matrix12.Text = matrixValues[1].ToString();
@@ -85,22 +77,6 @@ namespace WinFormsApp {
 
         private void refreshScreen_Event(object sender, EventArgs e) =>
             Refresh();
-
-        private void openDrawingBtn_Click(object sender, EventArgs e) {
-            if (openFileDialog.ShowDialog() == DialogResult.OK) {
-                string rawJson = System.IO.File.ReadAllText(@openFileDialog.FileName);
-                JsonDocumentOptions options = new JsonDocumentOptions {
-                    AllowTrailingCommas = true,
-                    CommentHandling = JsonCommentHandling.Skip,
-                };
-
-                using (JsonDocument parsedJson = JsonDocument.Parse(rawJson, options)) {
-                    JsonElement root = parsedJson.RootElement;
-                    JsonElement canvasSize = root.GetProperty("canvasSize");
-                    JsonElement pointCoords = root.GetProperty("points");
-                }
-            }
-        }
 
         private void numeric_ValueChanged(object sender, EventArgs e) {
             CheckBox checkbox;
