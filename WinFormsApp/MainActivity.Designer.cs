@@ -138,13 +138,13 @@
             // editDrawBtn
             // 
             this.editDrawBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.editDrawBtn.Enabled = false;
             this.editDrawBtn.Location = new System.Drawing.Point(3, 3);
             this.editDrawBtn.Name = "editDrawBtn";
             this.editDrawBtn.Size = new System.Drawing.Size(208, 29);
             this.editDrawBtn.TabIndex = 1;
             this.editDrawBtn.Text = "Editar dibujo";
             this.editDrawBtn.UseVisualStyleBackColor = true;
+            this.editDrawBtn.Click += new System.EventHandler(this.editDrawBtn_Click);
             // 
             // homothesisValue
             // 

@@ -141,5 +141,10 @@ namespace WinFormsApp {
             homothesisCheckbox.Checked = false;
             homothesisValue.Value = 1;
         }
+
+        private void editDrawBtn_Click(object sender, EventArgs e) {
+            drawingActivity board = new drawingActivity();
+            board.Show();
+        }
     }
 }
