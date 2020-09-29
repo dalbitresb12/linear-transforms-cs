@@ -36,7 +36,7 @@ namespace WinFormsApp {
 
             Matrix tf = new Matrix();
 
-            if (transformationsEnabled) {
+            if (pathPoints.Count > 0 && transformationsEnabled) {
                 if (reflectionXCheckbox.Checked)
                     tf.Multiply(new Matrix(1, 0, 0, -1, 0, 0), MatrixOrder.Append);
 
@@ -80,7 +80,7 @@ namespace WinFormsApp {
 
         private void numeric_ValueChanged(object sender, EventArgs e) {
             CheckBox checkbox;
-            NumericUpDown textBox = (NumericUpDown)sender;
+            NumericUpDown textBox = sender as NumericUpDown;
             switch (textBox.Name) {
                 case "rotationValue":
                     if (textBox.Value > (decimal)359.9 || textBox.Value < (decimal)-359.9)
@@ -110,7 +110,7 @@ namespace WinFormsApp {
         }
 
         private void applyTransformations_CheckedChanged(object sender, EventArgs e) {
-            CheckBox checkBox = (CheckBox)sender;
+            CheckBox checkBox = sender as CheckBox;
             if (checkBox.Checked && !transformationsEnabled) {
                 transformationsEnabled = true;
             } else if (transformationsEnabled && !isAnyChecked()) {
