@@ -8,7 +8,7 @@ Trabajo parcial del curso de Matemática Discreta de la carrera de Ingeniería d
 
 ## Compilación y Ejecución ⚙️
 
-Se pueden utilizar los archivos binarios precompilados, disponibles en GitHub como [_releases_](https://github.com/dalbitresb12/tf-mate-discreta/releases).
+Se pueden utilizar los archivos binarios precompilados, disponibles en GitHub como [_releases_](https://github.com/dalbitresb12/tp-mate-discreta/releases).
 
 Para compilar el proyecto, se debe iniciar la compilación abriendo la solución utilizando Visual Studio 2019.
 
