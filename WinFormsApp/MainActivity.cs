@@ -9,10 +9,13 @@ namespace WinFormsApp {
     public partial class mainActivity : Form {
         private bool shouldDraw = true;
         private bool transformationsEnabled = false;
-        private readonly List<Point> pathPoints = new List<Point>();
+        private List<Point> pathPoints;
+        private readonly drawingActivity childActivity;
 
-        public mainActivity() =>
+        public mainActivity() {
+            childActivity = new drawingActivity(this);
             InitializeComponent();
+        }
 
         private void drawingBox_Paint(object sender, PaintEventArgs e) {
             Graphics world = e.Graphics;
@@ -31,12 +34,12 @@ namespace WinFormsApp {
             xAxis.AddLine(new Point(-drawingBoxSize.Width, 0), new Point(drawingBoxSize.Width, 0));
             yAxis.AddLine(new Point(0, -drawingBoxSize.Height), new Point(0, drawingBoxSize.Height));
 
-            if (pathPoints.Count > 0)
+            if (pathPoints != null && pathPoints.Count > 0)
                 path.AddLines(pathPoints.ToArray());
 
             Matrix tf = new Matrix();
 
-            if (pathPoints.Count > 0 && transformationsEnabled) {
+            if (pathPoints != null && pathPoints.Count > 0 && transformationsEnabled) {
                 if (reflectionXCheckbox.Checked)
                     tf.Multiply(new Matrix(1, 0, 0, -1, 0, 0), MatrixOrder.Append);
 
@@ -61,7 +64,7 @@ namespace WinFormsApp {
             world.DrawPath(new Pen(Color.Blue, 2), xAxis);
             world.DrawPath(new Pen(Color.Blue, 2), yAxis);
 
-            if (pathPoints.Count > 0 && shouldDraw)
+            if (pathPoints != null && pathPoints.Count > 0 && shouldDraw)
                 world.DrawPath(new Pen(Color.Black, 2), path);
         }
 
@@ -143,8 +146,15 @@ namespace WinFormsApp {
         }
 
         private void editDrawBtn_Click(object sender, EventArgs e) {
-            drawingActivity board = new drawingActivity();
-            board.Show();
+            if (!childActivity.Visible)
+                childActivity.Show();
+            else
+                _ = childActivity.Focus();
+        }
+
+        public void handleChildValues() {
+            pathPoints = childActivity.pathPoints;
+            Refresh();
         }
     }
 }
