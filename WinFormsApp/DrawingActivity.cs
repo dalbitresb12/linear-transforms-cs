@@ -11,8 +11,8 @@ namespace WinFormsApp {
 
         public drawingActivity(mainActivity parentForm) {
             InitializeComponent();
-            this.parentForm = parentForm;
-            drawingBoard.Cursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "PenIcon.cur");
+            // this.parentForm = parentForm;
+            // drawingBoard.Cursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "PenIcon.cur");
         }
 
         private void drawingBoard_Paint(object sender, PaintEventArgs e) {
@@ -31,18 +31,18 @@ namespace WinFormsApp {
 
         private void drawingBoard_MouseDown(object sender, MouseEventArgs e) {
             pathPoints.Add(e.Location);
-            parentForm.handleChildValues();
+            // parentForm.handleChildValues();
             Refresh();
         }
 
         private void cleanBtn_Click(object sender, EventArgs e) {
             pathPoints.Clear();
-            parentForm.handleChildValues();
+            // parentForm.handleChildValues();
             Refresh();
         }
 
         private void closeBtn_Click(object sender, EventArgs e) {
-            parentForm.handleChildValues();
+            // parentForm.handleChildValues();
             Hide();
         }
     }

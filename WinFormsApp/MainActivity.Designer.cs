@@ -27,7 +27,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.drawingBox = new System.Windows.Forms.PictureBox();
             this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.editDrawBtn = new System.Windows.Forms.Button();
             this.homothesisValue = new System.Windows.Forms.NumericUpDown();
             this.cleanTransformBtn = new System.Windows.Forms.Button();
             this.rotationCheckbox = new System.Windows.Forms.CheckBox();
@@ -51,6 +50,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.translateYValue = new System.Windows.Forms.NumericUpDown();
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
+            this.editCheckbox = new System.Windows.Forms.CheckBox();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
@@ -101,12 +101,12 @@
             this.drawingBox.TabIndex = 1;
             this.drawingBox.TabStop = false;
             this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
             // 
             // optionsLayout
             // 
             this.optionsLayout.ColumnCount = 1;
             this.optionsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214F));
-            this.optionsLayout.Controls.Add(this.editDrawBtn, 0, 0);
             this.optionsLayout.Controls.Add(this.homothesisValue, 0, 5);
             this.optionsLayout.Controls.Add(this.cleanTransformBtn, 0, 9);
             this.optionsLayout.Controls.Add(this.rotationCheckbox, 0, 4);
@@ -117,6 +117,7 @@
             this.optionsLayout.Controls.Add(this.rotationValue, 0, 3);
             this.optionsLayout.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.optionsLayout.Controls.Add(this.translateCheckbox, 0, 2);
+            this.optionsLayout.Controls.Add(this.editCheckbox, 0, 0);
             this.optionsLayout.Location = new System.Drawing.Point(583, 3);
             this.optionsLayout.Name = "optionsLayout";
             this.optionsLayout.RowCount = 11;
@@ -134,17 +135,6 @@
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.optionsLayout.Size = new System.Drawing.Size(214, 444);
             this.optionsLayout.TabIndex = 2;
-            // 
-            // editDrawBtn
-            // 
-            this.editDrawBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.editDrawBtn.Location = new System.Drawing.Point(3, 3);
-            this.editDrawBtn.Name = "editDrawBtn";
-            this.editDrawBtn.Size = new System.Drawing.Size(208, 29);
-            this.editDrawBtn.TabIndex = 1;
-            this.editDrawBtn.Text = "Editar dibujo";
-            this.editDrawBtn.UseVisualStyleBackColor = true;
-            this.editDrawBtn.Click += new System.EventHandler(this.editDrawBtn_Click);
             // 
             // homothesisValue
             // 
@@ -473,6 +463,17 @@
             this.translateCheckbox.UseVisualStyleBackColor = true;
             this.translateCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
             // 
+            // editCheckbox
+            // 
+            this.editCheckbox.AutoSize = true;
+            this.editCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editCheckbox.Location = new System.Drawing.Point(3, 3);
+            this.editCheckbox.Name = "editCheckbox";
+            this.editCheckbox.Size = new System.Drawing.Size(208, 29);
+            this.editCheckbox.TabIndex = 26;
+            this.editCheckbox.Text = "Activar modo de edición";
+            this.editCheckbox.UseVisualStyleBackColor = true;
+            // 
             // mainActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -512,7 +513,6 @@
         private System.Windows.Forms.CheckBox homothesisCheckbox;
         private System.Windows.Forms.CheckBox reflectionXCheckbox;
         private System.Windows.Forms.CheckBox reflectionYCheckbox;
-        private System.Windows.Forms.Button editDrawBtn;
         private System.Windows.Forms.TableLayoutPanel matrixLayout;
         private System.Windows.Forms.TextBox matrix11;
         private System.Windows.Forms.TextBox matrix12;
@@ -529,5 +529,6 @@
         private System.Windows.Forms.TextBox matrix13;
         private System.Windows.Forms.TextBox matrix23;
         private System.Windows.Forms.TextBox matrix33;
+        private System.Windows.Forms.CheckBox editCheckbox;
     }
 }

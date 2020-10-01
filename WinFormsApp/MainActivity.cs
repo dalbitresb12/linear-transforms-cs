@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -9,12 +10,13 @@ namespace WinFormsApp {
     public partial class mainActivity : Form {
         private bool shouldDraw = true;
         private bool transformationsEnabled = false;
-        private List<Point> pathPoints;
-        private readonly drawingActivity childActivity;
+        private readonly List<Point> pathPoints;
+        // private readonly drawingActivity childActivity;
 
         public mainActivity() {
-            childActivity = new drawingActivity(this);
             InitializeComponent();
+            // childActivity = new drawingActivity(this);
+            pathPoints = new List<Point>();
         }
 
         private void drawingBox_Paint(object sender, PaintEventArgs e) {
@@ -68,6 +70,18 @@ namespace WinFormsApp {
                 world.DrawPath(new Pen(Color.Black, 2), path);
         }
 
+        private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
+            if (editCheckbox.Checked) {
+                Size drawingBoxSize = drawingBox.Size;
+                Point mouseLocation = new Point(e.Location.X, e.Location.Y);
+                mouseLocation.X -= drawingBoxSize.Width / 2;
+                mouseLocation.Y -= drawingBoxSize.Height / 2;
+                // mouseLocation.Y *= -1;
+                pathPoints.Add(mouseLocation);
+                Refresh();
+            }
+        }
+
         private void updateMatrixValues(Matrix matrix) {
             List<float> matrixValues = matrix.Elements.ToList();
             matrix11.Text = matrixValues[0].ToString();
@@ -116,8 +130,11 @@ namespace WinFormsApp {
             CheckBox checkBox = sender as CheckBox;
             if (checkBox.Checked && !transformationsEnabled) {
                 transformationsEnabled = true;
+                editCheckbox.Checked = false;
+                editCheckbox.Enabled = false;
             } else if (transformationsEnabled && !isAnyChecked()) {
                 transformationsEnabled = false;
+                editCheckbox.Enabled = true;
             }
             Refresh();
         }
@@ -143,18 +160,7 @@ namespace WinFormsApp {
             rotationValue.Value = 0;
             homothesisCheckbox.Checked = false;
             homothesisValue.Value = 1;
-        }
-
-        private void editDrawBtn_Click(object sender, EventArgs e) {
-            if (!childActivity.Visible)
-                childActivity.Show();
-            else
-                _ = childActivity.Focus();
-        }
-
-        public void handleChildValues() {
-            pathPoints = childActivity.pathPoints;
-            Refresh();
+            editCheckbox.Enabled = true;
         }
     }
 }
