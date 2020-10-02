@@ -11,8 +11,8 @@ namespace WinFormsApp {
 
         public drawingActivity(mainActivity parentForm) {
             InitializeComponent();
-            // this.parentForm = parentForm;
-            // drawingBoard.Cursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "PenIcon.cur");
+            this.parentForm = parentForm;
+            drawingBoard.Cursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "PenIcon.cur");
         }
 
         private void drawingBoard_Paint(object sender, PaintEventArgs e) {

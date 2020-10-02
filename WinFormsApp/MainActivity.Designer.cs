@@ -473,6 +473,7 @@
             this.editCheckbox.TabIndex = 26;
             this.editCheckbox.Text = "Activar modo de edición";
             this.editCheckbox.UseVisualStyleBackColor = true;
+            this.editCheckbox.CheckedChanged += new System.EventHandler(this.editCheckbox_CheckedChanged);
             // 
             // mainActivity
             // 

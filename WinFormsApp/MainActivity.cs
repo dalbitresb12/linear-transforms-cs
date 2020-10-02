@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace WinFormsApp {
-    public partial class mainActivity : Form {
-        private bool shouldDraw = true;
-        private bool transformationsEnabled = false;
-        private readonly List<Point> pathPoints;
-        // private readonly drawingActivity childActivity;
+    enum Tool {
+        None,
+        Drag,
+        Pen,
+        Rectangle,
+        Line
+    }
 
-        public mainActivity() {
+    public partial class mainActivity : Form {
+        private readonly Cursor penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "PenIcon.cur");
+
+        private Tool currentTool = Tool.None;
+
+        private readonly List<Point> pathPoints = new List<Point>();
+        private bool transformationsEnabled = false;
+        private bool shouldDraw = true;
+
+        public mainActivity() =>
             InitializeComponent();
-            // childActivity = new drawingActivity(this);
-            pathPoints = new List<Point>();
-        }
 
         private void drawingBox_Paint(object sender, PaintEventArgs e) {
             Graphics world = e.Graphics;
@@ -56,7 +63,6 @@ namespace WinFormsApp {
 
                 if (translateCheckbox.Checked)
                     tf.Translate((float)translateX, -(float)translateY, MatrixOrder.Append);
-
             }
 
             updateMatrixValues(tf);
@@ -73,17 +79,14 @@ namespace WinFormsApp {
                     world.DrawPath(new Pen(Color.Blue, 2), path);
                 }
             }
-
-
         }
 
         private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
-            if (editCheckbox.Checked) {
+            if (currentTool == Tool.Pen) {
                 Size drawingBoxSize = drawingBox.Size;
                 Point mouseLocation = new Point(e.Location.X, e.Location.Y);
                 mouseLocation.X -= drawingBoxSize.Width / 2;
                 mouseLocation.Y -= drawingBoxSize.Height / 2;
-                // mouseLocation.Y *= -1;
                 pathPoints.Add(mouseLocation);
                 Refresh();
             }
@@ -168,6 +171,17 @@ namespace WinFormsApp {
             homothesisCheckbox.Checked = false;
             homothesisValue.Value = 1;
             editCheckbox.Enabled = true;
+        }
+
+        private void editCheckbox_CheckedChanged(object sender, EventArgs e) {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.Checked) {
+                currentTool = Tool.Pen;
+                drawingBox.Cursor = penCursor;
+            } else {
+                currentTool = Tool.None;
+                drawingBox.Cursor = Cursors.Default;
+            }
         }
     }
 }
