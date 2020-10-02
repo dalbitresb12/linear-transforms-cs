@@ -1,4 +1,4 @@
-# Transformaciones Líneales
+# Transformaciones Lineales
 
 Trabajo parcial del curso de Matemática Discreta de la carrera de Ingeniería de Software de la UPC.
 

@@ -57,17 +57,24 @@ namespace WinFormsApp {
                 if (translateCheckbox.Checked)
                     tf.Translate((float)translateX, -(float)translateY, MatrixOrder.Append);
 
-                path.Transform(tf);
             }
 
             updateMatrixValues(tf);
 
             world.TranslateTransform(drawingBoxSize.Width / 2, drawingBoxSize.Height / 2);
-            world.DrawPath(new Pen(Color.Blue, 2), xAxis);
-            world.DrawPath(new Pen(Color.Blue, 2), yAxis);
+            world.DrawPath(new Pen(Color.Black, 1), xAxis);
+            world.DrawPath(new Pen(Color.Black, 1), yAxis);
 
-            if (pathPoints != null && pathPoints.Count > 0 && shouldDraw)
-                world.DrawPath(new Pen(Color.Black, 2), path);
+            if (pathPoints != null && pathPoints.Count > 0) {
+                world.DrawPath(new Pen(Color.Green, 2), path);
+
+                if (transformationsEnabled && shouldDraw) {
+                    path.Transform(tf);
+                    world.DrawPath(new Pen(Color.Blue, 2), path);
+                }
+            }
+
+
         }
 
         private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
