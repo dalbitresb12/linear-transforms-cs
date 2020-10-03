@@ -24,7 +24,7 @@ namespace WinFormsApp {
     }
 
     public partial class mainActivity : Form {
-        private readonly Cursor penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "PenIcon.cur");
+        private readonly Cursor penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\PenCursor.cur");
 
         private Tool currentTool = Tool.None;
 
