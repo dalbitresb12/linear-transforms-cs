@@ -14,13 +14,21 @@ namespace WinFormsApp {
         Line
     }
 
+    enum Transformation {
+        Rotate,
+        Scale,
+        TranslationX,
+        TranslationY,
+        ReflectionX,
+        ReflectionY
+    }
+
     public partial class mainActivity : Form {
         private readonly Cursor penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "PenIcon.cur");
 
         private Tool currentTool = Tool.None;
 
         private readonly List<Point> pathPoints = new List<Point>();
-        private bool transformationsEnabled = false;
         private bool shouldDraw = true;
 
         public mainActivity() =>
@@ -30,10 +38,11 @@ namespace WinFormsApp {
             Graphics world = e.Graphics;
             world.SmoothingMode = SmoothingMode.AntiAlias;
 
-            decimal rotationAngle = rotationValue.Value;
-            decimal homothesis = homothesisValue.Value;
-            decimal translateX = translateXValue.Value;
-            decimal translateY = translateYValue.Value;
+            bool transformationsEnabled = getCheckedStatus();
+            decimal rotationAngle = getValue(Transformation.Rotate);
+            decimal homothesis = getValue(Transformation.Scale);
+            decimal translateX = getValue(Transformation.TranslationX);
+            decimal translateY = getValue(Transformation.TranslationY);
 
             Size drawingBoxSize = drawingBox.Size;
             GraphicsPath xAxis = new GraphicsPath();
@@ -49,19 +58,19 @@ namespace WinFormsApp {
             Matrix tf = new Matrix();
 
             if (pathPoints != null && pathPoints.Count > 0 && transformationsEnabled) {
-                if (reflectionXCheckbox.Checked)
+                if (getCheckedStatus(Transformation.ReflectionX))
                     tf.Multiply(new Matrix(1, 0, 0, -1, 0, 0), MatrixOrder.Append);
 
-                if (reflectionYCheckbox.Checked)
+                if (getCheckedStatus(Transformation.ReflectionY))
                     tf.Multiply(new Matrix(-1, 0, 0, 1, 0, 0), MatrixOrder.Append);
 
-                if (rotationCheckbox.Checked)
+                if (getCheckedStatus(Transformation.Rotate))
                     tf.Rotate(-(float)rotationAngle, MatrixOrder.Append);
 
-                if (homothesisCheckbox.Checked)
+                if (getCheckedStatus(Transformation.Scale))
                     tf.Scale((float)homothesis, (float)homothesis, MatrixOrder.Append);
 
-                if (translateCheckbox.Checked)
+                if (getCheckedStatus(Transformation.TranslationX) || getCheckedStatus(Transformation.TranslationY))
                     tf.Translate((float)translateX, -(float)translateY, MatrixOrder.Append);
             }
 
@@ -106,14 +115,15 @@ namespace WinFormsApp {
             Refresh();
 
         private void numeric_ValueChanged(object sender, EventArgs e) {
-            CheckBox checkbox;
+            bool checkedStatus;
             NumericUpDown textBox = sender as NumericUpDown;
+
             switch (textBox.Name) {
                 case "rotationValue":
                     if (textBox.Value > (decimal)359.9 || textBox.Value < (decimal)-359.9)
                         textBox.Value = 0;
 
-                    checkbox = rotationCheckbox;
+                    checkedStatus = getCheckedStatus(Transformation.Rotate);
                     break;
                 case "homothesisValue":
                     if (textBox.Value == 0)
@@ -121,55 +131,93 @@ namespace WinFormsApp {
                     else
                         shouldDraw = true;
 
-                    checkbox = homothesisCheckbox;
+                    checkedStatus = getCheckedStatus(Transformation.Scale);
                     break;
                 case "translateXValue":
+                    checkedStatus = getCheckedStatus(Transformation.TranslationX);
+                    break;
                 case "translateYValue":
-                    checkbox = translateCheckbox;
+                    checkedStatus = getCheckedStatus(Transformation.TranslationY);
                     break;
                 default:
-                    checkbox = new CheckBox();
+                    checkedStatus = false;
                     break;
             }
 
-            if (checkbox.Checked)
+            if (checkedStatus)
                 Refresh();
         }
 
         private void applyTransformations_CheckedChanged(object sender, EventArgs e) {
-            CheckBox checkBox = sender as CheckBox;
-            if (checkBox.Checked && !transformationsEnabled) {
-                transformationsEnabled = true;
-                editCheckbox.Checked = false;
+            if (getCheckedStatus()) {
                 editCheckbox.Enabled = false;
-            } else if (transformationsEnabled && !isAnyChecked()) {
-                transformationsEnabled = false;
+                editCheckbox.Checked = false;
+            } else {
                 editCheckbox.Enabled = true;
             }
             Refresh();
         }
 
-        private bool isAnyChecked() {
-            return (
-                rotationCheckbox.Checked ||
-                homothesisCheckbox.Checked ||
-                reflectionXCheckbox.Checked ||
-                reflectionYCheckbox.Checked ||
-                translateCheckbox.Checked
-            );
+        private dynamic getTransformation(Transformation tf, Type type) {
+            if (type == typeof(NumericUpDown)) {
+                switch (tf) {
+                    case Transformation.Rotate:
+                        return rotationValue;
+                    case Transformation.Scale:
+                        return homothesisValue;
+                    case Transformation.TranslationX:
+                        return translateXValue;
+                    case Transformation.TranslationY:
+                        return translateYValue;
+                    default:
+                        return new NumericUpDown();
+                }
+            } else if (type == typeof(CheckBox)) {
+                switch (tf) {
+                    case Transformation.Rotate:
+                        return rotationCheckbox;
+                    case Transformation.Scale:
+                        return homothesisCheckbox;
+                    case Transformation.TranslationX:
+                    case Transformation.TranslationY:
+                        return translateCheckbox;
+                    case Transformation.ReflectionX:
+                        return reflectionXCheckbox;
+                    case Transformation.ReflectionY:
+                        return reflectionYCheckbox;
+                    default:
+                        return new CheckBox();
+                }
+            } else {
+                return false;
+            }
         }
 
+        private decimal getValue(Transformation tf) =>
+            (getTransformation(tf, typeof(NumericUpDown)) as NumericUpDown).Value;
+
+        private bool getCheckedStatus() {
+            foreach (Transformation tf in Enum.GetValues(typeof(Transformation))) {
+                if ((getTransformation(tf, typeof(CheckBox)) as CheckBox).Checked)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool getCheckedStatus(Transformation tf) =>
+            (getTransformation(tf, typeof(CheckBox)) as CheckBox).Checked;
+
+
         private void cleanTransformBtn_Click(object sender, EventArgs e) {
-            transformationsEnabled = false;
-            reflectionXCheckbox.Checked = false;
-            reflectionYCheckbox.Checked = false;
-            translateCheckbox.Checked = false;
-            translateXValue.Value = 0;
-            translateYValue.Value = 0;
-            rotationCheckbox.Checked = false;
-            rotationValue.Value = 0;
-            homothesisCheckbox.Checked = false;
-            homothesisValue.Value = 1;
+            foreach (Transformation tf in Enum.GetValues(typeof(Transformation))) {
+                (getTransformation(tf, typeof(CheckBox)) as CheckBox).Checked = false;
+            }
+
+            (getTransformation(Transformation.Rotate, typeof(NumericUpDown)) as NumericUpDown).Value = 0;
+            (getTransformation(Transformation.Scale, typeof(NumericUpDown)) as NumericUpDown).Value = 1;
+            (getTransformation(Transformation.TranslationX, typeof(NumericUpDown)) as NumericUpDown).Value = 0;
+            (getTransformation(Transformation.TranslationY, typeof(NumericUpDown)) as NumericUpDown).Value = 0;
+
             editCheckbox.Enabled = true;
         }
 
