@@ -50,7 +50,10 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.translateYValue = new System.Windows.Forms.NumericUpDown();
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
-            this.editCheckbox = new System.Windows.Forms.CheckBox();
+            this.drawingToolStrip = new System.Windows.Forms.ToolStrip();
+            this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.penToolBtn = new System.Windows.Forms.ToolStripButton();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
@@ -61,6 +64,7 @@
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.translateXValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).BeginInit();
+            this.drawingToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTableLayout
@@ -117,11 +121,11 @@
             this.optionsLayout.Controls.Add(this.rotationValue, 0, 3);
             this.optionsLayout.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.optionsLayout.Controls.Add(this.translateCheckbox, 0, 2);
-            this.optionsLayout.Controls.Add(this.editCheckbox, 0, 0);
+            this.optionsLayout.Controls.Add(this.drawingToolStrip, 0, 0);
             this.optionsLayout.Location = new System.Drawing.Point(583, 3);
             this.optionsLayout.Name = "optionsLayout";
             this.optionsLayout.RowCount = 11;
-            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -132,7 +136,6 @@
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.optionsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.optionsLayout.Size = new System.Drawing.Size(214, 444);
             this.optionsLayout.TabIndex = 2;
             // 
@@ -145,7 +148,7 @@
             0,
             0,
             65536});
-            this.homothesisValue.Location = new System.Drawing.Point(3, 138);
+            this.homothesisValue.Location = new System.Drawing.Point(3, 133);
             this.homothesisValue.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -169,7 +172,7 @@
             // cleanTransformBtn
             // 
             this.cleanTransformBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cleanTransformBtn.Location = new System.Drawing.Point(3, 238);
+            this.cleanTransformBtn.Location = new System.Drawing.Point(3, 233);
             this.cleanTransformBtn.Name = "cleanTransformBtn";
             this.cleanTransformBtn.Size = new System.Drawing.Size(208, 29);
             this.cleanTransformBtn.TabIndex = 11;
@@ -180,7 +183,7 @@
             // rotationCheckbox
             // 
             this.rotationCheckbox.AutoSize = true;
-            this.rotationCheckbox.Location = new System.Drawing.Point(3, 113);
+            this.rotationCheckbox.Location = new System.Drawing.Point(3, 108);
             this.rotationCheckbox.Name = "rotationCheckbox";
             this.rotationCheckbox.Size = new System.Drawing.Size(149, 17);
             this.rotationCheckbox.TabIndex = 6;
@@ -191,7 +194,7 @@
             // homothesisCheckbox
             // 
             this.homothesisCheckbox.AutoSize = true;
-            this.homothesisCheckbox.Location = new System.Drawing.Point(3, 163);
+            this.homothesisCheckbox.Location = new System.Drawing.Point(3, 158);
             this.homothesisCheckbox.Name = "homothesisCheckbox";
             this.homothesisCheckbox.Size = new System.Drawing.Size(155, 17);
             this.homothesisCheckbox.TabIndex = 8;
@@ -202,7 +205,7 @@
             // reflectionXCheckbox
             // 
             this.reflectionXCheckbox.AutoSize = true;
-            this.reflectionXCheckbox.Location = new System.Drawing.Point(3, 188);
+            this.reflectionXCheckbox.Location = new System.Drawing.Point(3, 183);
             this.reflectionXCheckbox.Name = "reflectionXCheckbox";
             this.reflectionXCheckbox.Size = new System.Drawing.Size(125, 17);
             this.reflectionXCheckbox.TabIndex = 9;
@@ -213,7 +216,7 @@
             // reflectionYCheckbox
             // 
             this.reflectionYCheckbox.AutoSize = true;
-            this.reflectionYCheckbox.Location = new System.Drawing.Point(3, 213);
+            this.reflectionYCheckbox.Location = new System.Drawing.Point(3, 208);
             this.reflectionYCheckbox.Name = "reflectionYCheckbox";
             this.reflectionYCheckbox.Size = new System.Drawing.Size(125, 17);
             this.reflectionYCheckbox.TabIndex = 10;
@@ -236,7 +239,7 @@
             this.matrixLayout.Controls.Add(this.matrix13, 2, 0);
             this.matrixLayout.Controls.Add(this.matrix23, 2, 1);
             this.matrixLayout.Controls.Add(this.matrix33, 2, 2);
-            this.matrixLayout.Location = new System.Drawing.Point(3, 273);
+            this.matrixLayout.Location = new System.Drawing.Point(3, 268);
             this.matrixLayout.Name = "matrixLayout";
             this.matrixLayout.RowCount = 3;
             this.matrixLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -360,7 +363,7 @@
             // 
             this.rotationValue.DecimalPlaces = 2;
             this.rotationValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rotationValue.Location = new System.Drawing.Point(3, 88);
+            this.rotationValue.Location = new System.Drawing.Point(3, 83);
             this.rotationValue.Maximum = new decimal(new int[] {
             360,
             0,
@@ -383,7 +386,7 @@
             this.flowLayoutPanel1.Controls.Add(this.textBox2);
             this.flowLayoutPanel1.Controls.Add(this.translateYValue);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 35);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 30);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(214, 25);
@@ -455,7 +458,7 @@
             // 
             this.translateCheckbox.AutoSize = true;
             this.translateCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.translateCheckbox.Location = new System.Drawing.Point(3, 63);
+            this.translateCheckbox.Location = new System.Drawing.Point(3, 58);
             this.translateCheckbox.Name = "translateCheckbox";
             this.translateCheckbox.Size = new System.Drawing.Size(208, 19);
             this.translateCheckbox.TabIndex = 25;
@@ -463,17 +466,51 @@
             this.translateCheckbox.UseVisualStyleBackColor = true;
             this.translateCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
             // 
-            // editCheckbox
+            // drawingToolStrip
             // 
-            this.editCheckbox.AutoSize = true;
-            this.editCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.editCheckbox.Location = new System.Drawing.Point(3, 3);
-            this.editCheckbox.Name = "editCheckbox";
-            this.editCheckbox.Size = new System.Drawing.Size(208, 29);
-            this.editCheckbox.TabIndex = 26;
-            this.editCheckbox.Text = "Activar modo de edición";
-            this.editCheckbox.UseVisualStyleBackColor = true;
-            this.editCheckbox.CheckedChanged += new System.EventHandler(this.editCheckbox_CheckedChanged);
+            this.drawingToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawingToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.drawingToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cursorToolBtn,
+            this.dragToolBtn,
+            this.penToolBtn});
+            this.drawingToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.drawingToolStrip.Name = "drawingToolStrip";
+            this.drawingToolStrip.Size = new System.Drawing.Size(214, 30);
+            this.drawingToolStrip.TabIndex = 26;
+            this.drawingToolStrip.Text = "Herramientas de dibujo";
+            // 
+            // cursorToolBtn
+            // 
+            this.cursorToolBtn.Checked = true;
+            this.cursorToolBtn.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cursorToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cursorToolBtn.Image = global::WinFormsApp.Properties.Resources.CursorIcon;
+            this.cursorToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cursorToolBtn.Name = "cursorToolBtn";
+            this.cursorToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.cursorToolBtn.Text = "Cursor";
+            this.cursorToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // dragToolBtn
+            // 
+            this.dragToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.dragToolBtn.Image = global::WinFormsApp.Properties.Resources.DragIcon;
+            this.dragToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dragToolBtn.Name = "dragToolBtn";
+            this.dragToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.dragToolBtn.Text = "Mover";
+            this.dragToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // penToolBtn
+            // 
+            this.penToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.penToolBtn.Image = global::WinFormsApp.Properties.Resources.PenIcon;
+            this.penToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.penToolBtn.Name = "penToolBtn";
+            this.penToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.penToolBtn.Text = "Lápiz";
+            this.penToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
             // mainActivity
             // 
@@ -497,6 +534,8 @@
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.translateXValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).EndInit();
+            this.drawingToolStrip.ResumeLayout(false);
+            this.drawingToolStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -530,6 +569,9 @@
         private System.Windows.Forms.TextBox matrix13;
         private System.Windows.Forms.TextBox matrix23;
         private System.Windows.Forms.TextBox matrix33;
-        private System.Windows.Forms.CheckBox editCheckbox;
+        private System.Windows.Forms.ToolStrip drawingToolStrip;
+        private System.Windows.Forms.ToolStripButton dragToolBtn;
+        private System.Windows.Forms.ToolStripButton penToolBtn;
+        private System.Windows.Forms.ToolStripButton cursorToolBtn;
     }
 }

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WinFormsApp {
     enum Tool {
-        None,
+        Cursor,
         Drag,
         Pen,
         Rectangle,
@@ -25,11 +25,11 @@ namespace WinFormsApp {
 
     public partial class mainActivity : Form {
         private readonly Cursor penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\PenCursor.cur");
+        private readonly Cursor dragCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\DragCursor.cur");
 
-        private Tool currentTool = Tool.None;
+        private Tool currentTool = Tool.Cursor;
 
         private readonly List<Point> pathPoints = new List<Point>();
-        private bool shouldDraw = true;
 
         public mainActivity() =>
             InitializeComponent();
@@ -83,7 +83,7 @@ namespace WinFormsApp {
             if (pathPoints != null && pathPoints.Count > 0) {
                 world.DrawPath(new Pen(Color.Green, 2), path);
 
-                if (transformationsEnabled && shouldDraw) {
+                if (transformationsEnabled && getValue(Transformation.Scale) != 0) {
                     path.Transform(tf);
                     world.DrawPath(new Pen(Color.Blue, 2), path);
                 }
@@ -127,11 +127,6 @@ namespace WinFormsApp {
 
                 checkedStatus = getCheckedStatus(Transformation.Rotate);
             } else if (numericUpDown == (getTransformation(Transformation.Scale, typeof(NumericUpDown)) as NumericUpDown)) {
-                if (numericUpDown.Value == 0)
-                    shouldDraw = false;
-                else
-                    shouldDraw = true;
-
                 checkedStatus = getCheckedStatus(Transformation.Scale);
             } else if (numericUpDown == (getTransformation(Transformation.TranslationX, typeof(NumericUpDown)) as NumericUpDown)) {
                 checkedStatus = getCheckedStatus(Transformation.TranslationX);
@@ -157,14 +152,59 @@ namespace WinFormsApp {
             (getTransformation(Transformation.TranslationY, typeof(NumericUpDown)) as NumericUpDown).Value = 0;
         }
 
-        private void editCheckbox_CheckedChanged(object sender, EventArgs e) {
-            CheckBox checkBox = sender as CheckBox;
-            if (checkBox.Checked) {
-                currentTool = Tool.Pen;
-                drawingBox.Cursor = penCursor;
+        private void selectTool_Click(object sender, EventArgs e) {
+            ToolStripButton btn = sender as ToolStripButton;
+            Tool senderTool = getToolFromBtn(btn);
+
+            if (!btn.Checked) {
+                foreach (Tool tool in Enum.GetValues(typeof(Tool))) {
+                    if (tool != senderTool) {
+                        getToolBtn(tool).Checked = false;
+                        getToolBtn(tool).CheckState = CheckState.Unchecked;
+                    }
+                }
+
+                drawingBox.Cursor = getToolCursor(senderTool);
+                currentTool = senderTool;
+
+                btn.Checked = true;
+                btn.CheckState = CheckState.Checked;
             } else {
-                currentTool = Tool.None;
-                drawingBox.Cursor = Cursors.Default;
+                if (currentTool != Tool.Cursor && currentTool == senderTool)
+                    selectTool_Click(getToolBtn(Tool.Cursor), e);
+            }
+        }
+
+        private ToolStripButton getToolBtn(Tool tool) {
+            switch (tool) {
+                case Tool.Drag:
+                    return dragToolBtn;
+                case Tool.Pen:
+                    return penToolBtn;
+                case Tool.Cursor:
+                default:
+                    return cursorToolBtn;
+            }
+        }
+
+        private Tool getToolFromBtn(ToolStripButton btn) {
+            if (btn == dragToolBtn)
+                return Tool.Drag;
+            else if (btn == penToolBtn)
+                return Tool.Pen;
+            else
+                return Tool.Cursor;
+        }
+
+        private Cursor getToolCursor(Tool tool) {
+            switch (tool) {
+                case Tool.Drag:
+                    return dragCursor;
+                case Tool.Pen:
+                    return penCursor;
+                case Tool.Cursor:
+                default:
+                    return Cursors.Default;
             }
         }
 
