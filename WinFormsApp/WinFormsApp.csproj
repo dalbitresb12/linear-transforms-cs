@@ -71,12 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawingActivity.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DrawingActivity.Designer.cs">
-      <DependentUpon>DrawingActivity.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainActivity.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,9 +79,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DrawingActivity.resx">
-      <DependentUpon>DrawingActivity.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainActivity.resx">
       <DependentUpon>MainActivity.cs</DependentUpon>
     </EmbeddedResource>
