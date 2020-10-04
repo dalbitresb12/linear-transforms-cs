@@ -112,26 +112,54 @@ namespace WinFormsApp {
                     pathStrokes.Add(currentPath);
                 }
 
-                Size drawingBoxSize = drawingBox.Size;
-                Point mouseLocation = new Point(e.Location.X, e.Location.Y);
-                mouseLocation.X -= drawingBoxSize.Width / 2;
-                mouseLocation.Y -= drawingBoxSize.Height / 2;
+                Point mouseLocation = calculatePointWithOffset(e.Location);
                 currentPath.Add(mouseLocation);
+                Refresh();
+            } else if (currentTool == Tool.Pen) {
+                if (status == Status.None) {
+                    status = Status.PenDrawing;
+                    currentPath = new List<Point>();
+                    pathStrokes.Add(currentPath);
+
+                    Point mouseLocation = calculatePointWithOffset(e.Location);
+                    if (currentPath != null)
+                        currentPath.Add(mouseLocation);
+                    Refresh();
+                }
+            }
+        }
+
+        private void drawingBox_MouseMove(object sender, MouseEventArgs e) {
+            if (currentTool == Tool.Pen && status == Status.PenDrawing) {
+                Point mouseLocation = calculatePointWithOffset(e.Location);
+                if (currentPath != null)
+                    currentPath.Add(mouseLocation);
                 Refresh();
             }
         }
 
-        private void mainActivity_KeyDown(object sender, KeyEventArgs e) {
-            if (currentTool == Tool.Line) {
-                if (e.KeyCode == Keys.Escape) {
-                    // Prevent the key from bubbling up and remove the ANNOYING Ding soung
-                    e.Handled = true;
-                    e.SuppressKeyPress = true;
+        private void drawingBox_MouseUp(object sender, MouseEventArgs e) {
+            if (currentTool == Tool.Pen && status == Status.PenDrawing) {
+                status = Status.None;
+                currentPath = null;
+            }
+        }
 
-                    status = Status.None;
-                    currentPath = null;
-                    getToolBtn(Tool.Cursor).PerformClick();
-                }
+        private Point calculatePointWithOffset(Point originalMouseLoc) {
+            Size drawingBoxSize = drawingBox.Size;
+            Point realMouseLoc = new Point(originalMouseLoc.X, originalMouseLoc.Y);
+            realMouseLoc.X -= drawingBoxSize.Width / 2;
+            realMouseLoc.Y -= drawingBoxSize.Height / 2;
+            return realMouseLoc;
+        }
+
+        private void mainActivity_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Escape) {
+                // Prevent the key from bubbling up and remove the ANNOYING Ding soung
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                getToolBtn(Tool.Cursor).PerformClick();
             }
         }
 

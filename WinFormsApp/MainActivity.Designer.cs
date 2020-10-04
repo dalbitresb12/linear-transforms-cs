@@ -55,6 +55,7 @@
             this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
             this.penToolBtn = new System.Windows.Forms.ToolStripButton();
             this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
@@ -107,6 +108,8 @@
             this.drawingBox.TabStop = false;
             this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
             this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
+            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
+            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
             // optionsLayout
             // 
@@ -475,7 +478,8 @@
             this.cursorToolBtn,
             this.dragToolBtn,
             this.penToolBtn,
-            this.lineToolBtn});
+            this.lineToolBtn,
+            this.toolStripSeparator1});
             this.drawingToolStrip.Location = new System.Drawing.Point(0, 0);
             this.drawingToolStrip.Name = "drawingToolStrip";
             this.drawingToolStrip.Size = new System.Drawing.Size(214, 30);
@@ -523,6 +527,11 @@
             this.lineToolBtn.Size = new System.Drawing.Size(23, 27);
             this.lineToolBtn.Text = "Línea";
             this.lineToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
             // 
             // mainActivity
             // 
@@ -588,5 +597,6 @@
         private System.Windows.Forms.ToolStripButton penToolBtn;
         private System.Windows.Forms.ToolStripButton cursorToolBtn;
         private System.Windows.Forms.ToolStripButton lineToolBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
