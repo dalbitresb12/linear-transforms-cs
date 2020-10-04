@@ -91,7 +91,7 @@ namespace WinFormsApp {
         }
 
         private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
-            if (currentTool == Tool.Pen) {
+            if (currentTool == Tool.Line) {
                 Size drawingBoxSize = drawingBox.Size;
                 Point mouseLocation = new Point(e.Location.X, e.Location.Y);
                 mouseLocation.X -= drawingBoxSize.Width / 2;
@@ -181,6 +181,8 @@ namespace WinFormsApp {
                     return dragToolBtn;
                 case Tool.Pen:
                     return penToolBtn;
+                case Tool.Line:
+                    return lineToolBtn;
                 case Tool.Cursor:
                 default:
                     return cursorToolBtn;
@@ -188,10 +190,12 @@ namespace WinFormsApp {
         }
 
         private Tool getToolFromBtn(ToolStripButton btn) {
-            if (btn == dragToolBtn)
+            if (btn == getToolBtn(Tool.Drag))
                 return Tool.Drag;
-            else if (btn == penToolBtn)
+            else if (btn == getToolBtn(Tool.Pen))
                 return Tool.Pen;
+            else if (btn == getToolBtn(Tool.Line))
+                return Tool.Line;
             else
                 return Tool.Cursor;
         }
@@ -202,6 +206,8 @@ namespace WinFormsApp {
                     return dragCursor;
                 case Tool.Pen:
                     return penCursor;
+                case Tool.Line:
+                    return Cursors.Cross;
                 case Tool.Cursor:
                 default:
                     return Cursors.Default;
