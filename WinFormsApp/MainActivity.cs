@@ -285,7 +285,7 @@ namespace WinFormsApp {
                     case Transformation.Rotate:
                         return rotationValue;
                     case Transformation.Scale:
-                        return homothesisValue;
+                        return scaleValue;
                     case Transformation.TranslationX:
                         return translateXValue;
                     case Transformation.TranslationY:
@@ -298,7 +298,7 @@ namespace WinFormsApp {
                     case Transformation.Rotate:
                         return rotationCheckbox;
                     case Transformation.Scale:
-                        return homothesisCheckbox;
+                        return scaleCheckbox;
                     case Transformation.TranslationX:
                     case Transformation.TranslationY:
                         return translateCheckbox;

@@ -27,10 +27,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.drawingBox = new System.Windows.Forms.PictureBox();
             this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.homothesisValue = new System.Windows.Forms.NumericUpDown();
+            this.scaleValue = new System.Windows.Forms.NumericUpDown();
             this.cleanTransformBtn = new System.Windows.Forms.Button();
             this.rotationCheckbox = new System.Windows.Forms.CheckBox();
-            this.homothesisCheckbox = new System.Windows.Forms.CheckBox();
+            this.scaleCheckbox = new System.Windows.Forms.CheckBox();
             this.reflectionXCheckbox = new System.Windows.Forms.CheckBox();
             this.reflectionYCheckbox = new System.Windows.Forms.CheckBox();
             this.matrixLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -60,7 +60,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.optionsLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleValue)).BeginInit();
             this.matrixLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -115,10 +115,10 @@
             // 
             this.optionsLayout.ColumnCount = 1;
             this.optionsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214F));
-            this.optionsLayout.Controls.Add(this.homothesisValue, 0, 5);
+            this.optionsLayout.Controls.Add(this.scaleValue, 0, 5);
             this.optionsLayout.Controls.Add(this.cleanTransformBtn, 0, 9);
             this.optionsLayout.Controls.Add(this.rotationCheckbox, 0, 4);
-            this.optionsLayout.Controls.Add(this.homothesisCheckbox, 0, 6);
+            this.optionsLayout.Controls.Add(this.scaleCheckbox, 0, 6);
             this.optionsLayout.Controls.Add(this.reflectionXCheckbox, 0, 7);
             this.optionsLayout.Controls.Add(this.reflectionYCheckbox, 0, 8);
             this.optionsLayout.Controls.Add(this.matrixLayout, 0, 10);
@@ -145,33 +145,33 @@
             // 
             // homothesisValue
             // 
-            this.homothesisValue.DecimalPlaces = 2;
-            this.homothesisValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.homothesisValue.Increment = new decimal(new int[] {
+            this.scaleValue.DecimalPlaces = 2;
+            this.scaleValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scaleValue.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.homothesisValue.Location = new System.Drawing.Point(3, 133);
-            this.homothesisValue.Maximum = new decimal(new int[] {
+            this.scaleValue.Location = new System.Drawing.Point(3, 133);
+            this.scaleValue.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.homothesisValue.Minimum = new decimal(new int[] {
+            this.scaleValue.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.homothesisValue.Name = "homothesisValue";
-            this.homothesisValue.Size = new System.Drawing.Size(208, 20);
-            this.homothesisValue.TabIndex = 7;
-            this.homothesisValue.Value = new decimal(new int[] {
+            this.scaleValue.Name = "homothesisValue";
+            this.scaleValue.Size = new System.Drawing.Size(208, 20);
+            this.scaleValue.TabIndex = 7;
+            this.scaleValue.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.homothesisValue.ValueChanged += new System.EventHandler(this.numeric_ValueChanged);
+            this.scaleValue.ValueChanged += new System.EventHandler(this.numeric_ValueChanged);
             // 
             // cleanTransformBtn
             // 
@@ -197,14 +197,14 @@
             // 
             // homothesisCheckbox
             // 
-            this.homothesisCheckbox.AutoSize = true;
-            this.homothesisCheckbox.Location = new System.Drawing.Point(3, 158);
-            this.homothesisCheckbox.Name = "homothesisCheckbox";
-            this.homothesisCheckbox.Size = new System.Drawing.Size(155, 17);
-            this.homothesisCheckbox.TabIndex = 8;
-            this.homothesisCheckbox.Text = "Aplicar factor de homotecia";
-            this.homothesisCheckbox.UseVisualStyleBackColor = true;
-            this.homothesisCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
+            this.scaleCheckbox.AutoSize = true;
+            this.scaleCheckbox.Location = new System.Drawing.Point(3, 158);
+            this.scaleCheckbox.Name = "homothesisCheckbox";
+            this.scaleCheckbox.Size = new System.Drawing.Size(155, 17);
+            this.scaleCheckbox.TabIndex = 8;
+            this.scaleCheckbox.Text = "Aplicar factor de homotecia";
+            this.scaleCheckbox.UseVisualStyleBackColor = true;
+            this.scaleCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
             // 
             // reflectionXCheckbox
             // 
@@ -549,7 +549,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.optionsLayout.ResumeLayout(false);
             this.optionsLayout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleValue)).EndInit();
             this.matrixLayout.ResumeLayout(false);
             this.matrixLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).EndInit();
@@ -570,10 +570,10 @@
         private System.Windows.Forms.TableLayoutPanel optionsLayout;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown rotationValue;
-        private System.Windows.Forms.NumericUpDown homothesisValue;
+        private System.Windows.Forms.NumericUpDown scaleValue;
         private System.Windows.Forms.Button cleanTransformBtn;
         private System.Windows.Forms.CheckBox rotationCheckbox;
-        private System.Windows.Forms.CheckBox homothesisCheckbox;
+        private System.Windows.Forms.CheckBox scaleCheckbox;
         private System.Windows.Forms.CheckBox reflectionXCheckbox;
         private System.Windows.Forms.CheckBox reflectionYCheckbox;
         private System.Windows.Forms.TableLayoutPanel matrixLayout;
