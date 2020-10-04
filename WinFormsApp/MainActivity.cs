@@ -129,10 +129,12 @@ namespace WinFormsApp {
             world.DrawPath(new Pen(Color.Black, 1), yAxis);
 
             if (pathStrokes != null && pathStrokes.Count > 0) {
-                world.DrawPath(new Pen(Color.Green, 2), path);
+                if (multipleViewCheckbox.Checked)
+                    world.DrawPath(new Pen(Color.Green, 2), path);
 
-                if (transformationsEnabled && getValue(Transformation.Scale) != 0) {
-                    path.Transform(tf);
+                if (getValue(Transformation.Scale) != 0) {
+                    if (transformationsEnabled)
+                        path.Transform(tf);
                     world.DrawPath(new Pen(Color.Blue, 2), path);
                 }
             }
