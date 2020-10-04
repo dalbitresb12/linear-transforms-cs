@@ -26,21 +26,35 @@ namespace WinFormsApp {
     enum Status {
         PenDrawing,
         LineDrawing,
+        Dragging,
         None
     }
 
     public partial class mainActivity : Form {
-        private readonly Cursor penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\PenCursor.cur");
-        private readonly Cursor dragCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\DragCursor.cur");
+        private readonly Cursor penCursor;
+        private readonly Cursor dragCursor;
 
         private Tool currentTool = Tool.Cursor;
         private Status status = Status.None;
 
-        private readonly List<List<Point>> pathStrokes = new List<List<Point>>();
+        private Point globalTranslation;
+        private Point previousMousePos;
+
+        private readonly List<List<Point>> pathStrokes;
         private List<Point> currentPath;
 
-        public mainActivity() =>
+        public mainActivity() {
             InitializeComponent();
+            penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\PenCursor.cur");
+            dragCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\DragCursor.cur");
+
+            currentTool = Tool.Cursor;
+            status = Status.None;
+
+            globalTranslation = new Point(drawingBox.Size.Width / 2, drawingBox.Size.Height / 2);
+
+            pathStrokes = new List<List<Point>>();
+        }
 
         private void drawingBox_Paint(object sender, PaintEventArgs e) {
             Graphics world = e.Graphics;
@@ -52,13 +66,12 @@ namespace WinFormsApp {
             decimal translateX = getValue(Transformation.TranslationX);
             decimal translateY = getValue(Transformation.TranslationY);
 
-            Size drawingBoxSize = drawingBox.Size;
             GraphicsPath xAxis = new GraphicsPath();
             GraphicsPath yAxis = new GraphicsPath();
             GraphicsPath path = new GraphicsPath();
 
-            xAxis.AddLine(new Point(-drawingBoxSize.Width, 0), new Point(drawingBoxSize.Width, 0));
-            yAxis.AddLine(new Point(0, -drawingBoxSize.Height), new Point(0, drawingBoxSize.Height));
+            xAxis.AddLine(new Point(-10000, 0), new Point(10000, 0));
+            yAxis.AddLine(new Point(0, -10000), new Point(0, 10000));
 
             foreach (List<Point> stroke in pathStrokes.Where(x => x.Count > 0)) {
                 GraphicsPath p = new GraphicsPath();
@@ -90,7 +103,7 @@ namespace WinFormsApp {
 
             updateMatrixValues(tf);
 
-            world.TranslateTransform(drawingBoxSize.Width / 2, drawingBoxSize.Height / 2);
+            world.TranslateTransform(globalTranslation.X, globalTranslation.Y);
             world.DrawPath(new Pen(Color.Black, 1), xAxis);
             world.DrawPath(new Pen(Color.Black, 1), yAxis);
 
@@ -112,8 +125,8 @@ namespace WinFormsApp {
                     pathStrokes.Add(currentPath);
                 }
 
-                Point mouseLocation = calculatePointWithOffset(e.Location);
-                currentPath.Add(mouseLocation);
+                Point mousePos = calculatePointWithOffset(e.Location);
+                currentPath.Add(mousePos);
                 Refresh();
             } else if (currentTool == Tool.Pen) {
                 if (status == Status.None) {
@@ -121,19 +134,38 @@ namespace WinFormsApp {
                     currentPath = new List<Point>();
                     pathStrokes.Add(currentPath);
 
-                    Point mouseLocation = calculatePointWithOffset(e.Location);
+                    Point mousePos = calculatePointWithOffset(e.Location);
                     if (currentPath != null)
-                        currentPath.Add(mouseLocation);
+                        currentPath.Add(mousePos);
                     Refresh();
+                }
+            } else if (currentTool == Tool.Drag) {
+                if (status == Status.None) {
+                    status = Status.Dragging;
+                    previousMousePos = e.Location;
                 }
             }
         }
 
         private void drawingBox_MouseMove(object sender, MouseEventArgs e) {
+            // Prevent the event to fire twice for the same mouse location
+            // See https://stackoverflow.com/a/23048201
+            Point mousePos = e.Location;
+            if (mousePos == previousMousePos)
+                return;
+
             if (currentTool == Tool.Pen && status == Status.PenDrawing) {
-                Point mouseLocation = calculatePointWithOffset(e.Location);
+                mousePos = calculatePointWithOffset(e.Location);
                 if (currentPath != null)
-                    currentPath.Add(mouseLocation);
+                    currentPath.Add(mousePos);
+                Refresh();
+            } else if (currentTool == Tool.Drag && status == Status.Dragging) {
+                int deltaX = mousePos.X - previousMousePos.X;
+                int deltaY = mousePos.Y - previousMousePos.Y;
+
+                globalTranslation.X += deltaX;
+                globalTranslation.Y += deltaY;
+                previousMousePos = mousePos;
                 Refresh();
             }
         }
@@ -142,20 +174,22 @@ namespace WinFormsApp {
             if (currentTool == Tool.Pen && status == Status.PenDrawing) {
                 status = Status.None;
                 currentPath = null;
+            } else if (currentTool == Tool.Drag && status == Status.Dragging) {
+                status = Status.None;
             }
         }
 
         private Point calculatePointWithOffset(Point originalMouseLoc) {
-            Size drawingBoxSize = drawingBox.Size;
             Point realMouseLoc = new Point(originalMouseLoc.X, originalMouseLoc.Y);
-            realMouseLoc.X -= drawingBoxSize.Width / 2;
-            realMouseLoc.Y -= drawingBoxSize.Height / 2;
+            realMouseLoc.X -= globalTranslation.X;
+            realMouseLoc.Y -= globalTranslation.Y;
             return realMouseLoc;
         }
 
         private void mainActivity_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Escape) {
-                // Prevent the key from bubbling up and remove the ANNOYING Ding soung
+                // Prevent the key from bubbling up and remove the ANNOYING ding sound
+                // See https://stackoverflow.com/a/16350929
                 e.Handled = true;
                 e.SuppressKeyPress = true;
 

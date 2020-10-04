@@ -143,7 +143,7 @@
             this.optionsLayout.Size = new System.Drawing.Size(214, 444);
             this.optionsLayout.TabIndex = 2;
             // 
-            // homothesisValue
+            // scaleValue
             // 
             this.scaleValue.DecimalPlaces = 2;
             this.scaleValue.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -163,7 +163,7 @@
             0,
             0,
             131072});
-            this.scaleValue.Name = "homothesisValue";
+            this.scaleValue.Name = "scaleValue";
             this.scaleValue.Size = new System.Drawing.Size(208, 20);
             this.scaleValue.TabIndex = 7;
             this.scaleValue.Value = new decimal(new int[] {
@@ -195,11 +195,11 @@
             this.rotationCheckbox.UseVisualStyleBackColor = true;
             this.rotationCheckbox.CheckedChanged += new System.EventHandler(this.applyTransformations_CheckedChanged);
             // 
-            // homothesisCheckbox
+            // scaleCheckbox
             // 
             this.scaleCheckbox.AutoSize = true;
             this.scaleCheckbox.Location = new System.Drawing.Point(3, 158);
-            this.scaleCheckbox.Name = "homothesisCheckbox";
+            this.scaleCheckbox.Name = "scaleCheckbox";
             this.scaleCheckbox.Size = new System.Drawing.Size(155, 17);
             this.scaleCheckbox.TabIndex = 8;
             this.scaleCheckbox.Text = "Aplicar factor de homotecia";
