@@ -23,13 +23,21 @@ namespace WinFormsApp {
         ReflectionY
     }
 
+    enum Status {
+        PenDrawing,
+        LineDrawing,
+        None
+    }
+
     public partial class mainActivity : Form {
         private readonly Cursor penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\PenCursor.cur");
         private readonly Cursor dragCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\DragCursor.cur");
 
         private Tool currentTool = Tool.Cursor;
+        private Status status = Status.None;
 
-        private readonly List<Point> pathPoints = new List<Point>();
+        private readonly List<List<Point>> pathStrokes = new List<List<Point>>();
+        private List<Point> currentPath;
 
         public mainActivity() =>
             InitializeComponent();
@@ -52,12 +60,18 @@ namespace WinFormsApp {
             xAxis.AddLine(new Point(-drawingBoxSize.Width, 0), new Point(drawingBoxSize.Width, 0));
             yAxis.AddLine(new Point(0, -drawingBoxSize.Height), new Point(0, drawingBoxSize.Height));
 
-            if (pathPoints != null && pathPoints.Count > 0)
-                path.AddLines(pathPoints.ToArray());
+            foreach (List<Point> stroke in pathStrokes.Where(x => x.Count > 0)) {
+                GraphicsPath p = new GraphicsPath();
+                if (stroke.Count == 1)
+                    p.AddRectangle(new Rectangle(stroke[0].X, stroke[0].Y, 1, 1));
+                else
+                    p.AddLines(stroke.ToArray());
+                path.AddPath(p, false);
+            }
 
             Matrix tf = new Matrix();
 
-            if (pathPoints != null && pathPoints.Count > 0 && transformationsEnabled) {
+            if (pathStrokes != null && pathStrokes.Count > 0 && transformationsEnabled) {
                 if (getCheckedStatus(Transformation.ReflectionX))
                     tf.Multiply(new Matrix(1, 0, 0, -1, 0, 0), MatrixOrder.Append);
 
@@ -80,7 +94,7 @@ namespace WinFormsApp {
             world.DrawPath(new Pen(Color.Black, 1), xAxis);
             world.DrawPath(new Pen(Color.Black, 1), yAxis);
 
-            if (pathPoints != null && pathPoints.Count > 0) {
+            if (pathStrokes != null && pathStrokes.Count > 0) {
                 world.DrawPath(new Pen(Color.Green, 2), path);
 
                 if (transformationsEnabled && getValue(Transformation.Scale) != 0) {
@@ -92,12 +106,32 @@ namespace WinFormsApp {
 
         private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
             if (currentTool == Tool.Line) {
+                if (status == Status.None) {
+                    status = Status.LineDrawing;
+                    currentPath = new List<Point>();
+                    pathStrokes.Add(currentPath);
+                }
+
                 Size drawingBoxSize = drawingBox.Size;
                 Point mouseLocation = new Point(e.Location.X, e.Location.Y);
                 mouseLocation.X -= drawingBoxSize.Width / 2;
                 mouseLocation.Y -= drawingBoxSize.Height / 2;
-                pathPoints.Add(mouseLocation);
+                currentPath.Add(mouseLocation);
                 Refresh();
+            }
+        }
+
+        private void mainActivity_KeyDown(object sender, KeyEventArgs e) {
+            if (currentTool == Tool.Line) {
+                if (e.KeyCode == Keys.Escape) {
+                    // Prevent the key from bubbling up and remove the ANNOYING Ding soung
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+
+                    status = Status.None;
+                    currentPath = null;
+                    getToolBtn(Tool.Cursor).PerformClick();
+                }
             }
         }
 
@@ -166,6 +200,9 @@ namespace WinFormsApp {
 
                 drawingBox.Cursor = getToolCursor(senderTool);
                 currentTool = senderTool;
+                status = Status.None;
+                if (currentPath != null)
+                    currentPath = null;
 
                 btn.Checked = true;
                 btn.CheckState = CheckState.Checked;

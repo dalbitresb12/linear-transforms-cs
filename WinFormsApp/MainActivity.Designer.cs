@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.mainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.drawingBox = new System.Windows.Forms.PictureBox();
             this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.homothesisValue = new System.Windows.Forms.NumericUpDown();
             this.cleanTransformBtn = new System.Windows.Forms.Button();
@@ -50,13 +51,13 @@
             this.translateYValue = new System.Windows.Forms.NumericUpDown();
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
             this.drawingToolStrip = new System.Windows.Forms.ToolStrip();
-            this.drawingBox = new System.Windows.Forms.PictureBox();
             this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
             this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
             this.penToolBtn = new System.Windows.Forms.ToolStripButton();
             this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.optionsLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).BeginInit();
             this.matrixLayout.SuspendLayout();
@@ -65,7 +66,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.translateXValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).BeginInit();
             this.drawingToolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTableLayout
@@ -92,6 +92,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(574, 444);
             this.panel1.TabIndex = 3;
+            // 
+            // drawingBox
+            // 
+            this.drawingBox.BackColor = System.Drawing.Color.White;
+            this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawingBox.Location = new System.Drawing.Point(0, 0);
+            this.drawingBox.MinimumSize = new System.Drawing.Size(100, 100);
+            this.drawingBox.Name = "drawingBox";
+            this.drawingBox.Size = new System.Drawing.Size(574, 444);
+            this.drawingBox.TabIndex = 1;
+            this.drawingBox.TabStop = false;
+            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
             // 
             // optionsLayout
             // 
@@ -467,21 +482,6 @@
             this.drawingToolStrip.TabIndex = 26;
             this.drawingToolStrip.Text = "Herramientas de dibujo";
             // 
-            // drawingBox
-            // 
-            this.drawingBox.BackColor = System.Drawing.Color.White;
-            this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drawingBox.Location = new System.Drawing.Point(0, 0);
-            this.drawingBox.MinimumSize = new System.Drawing.Size(100, 100);
-            this.drawingBox.Name = "drawingBox";
-            this.drawingBox.Size = new System.Drawing.Size(574, 444);
-            this.drawingBox.TabIndex = 1;
-            this.drawingBox.TabStop = false;
-            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
-            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
-            // 
             // cursorToolBtn
             // 
             this.cursorToolBtn.Checked = true;
@@ -530,11 +530,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainTableLayout);
+            this.KeyPreview = true;
             this.Name = "mainActivity";
             this.Text = "Transformaciones lineales";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mainActivity_KeyDown);
             this.Resize += new System.EventHandler(this.refreshScreen_Event);
             this.mainTableLayout.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.optionsLayout.ResumeLayout(false);
             this.optionsLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.homothesisValue)).EndInit();
@@ -547,7 +550,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).EndInit();
             this.drawingToolStrip.ResumeLayout(false);
             this.drawingToolStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.ResumeLayout(false);
 
         }
