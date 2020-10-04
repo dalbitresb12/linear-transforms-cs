@@ -11,7 +11,8 @@ namespace WinFormsApp {
         Drag,
         Pen,
         Rectangle,
-        Line
+        Line,
+        Eraser
     }
 
     enum Transformation {
@@ -27,18 +28,21 @@ namespace WinFormsApp {
         PenDrawing,
         LineDrawing,
         Dragging,
+        ErasePending,
         None
     }
 
     public partial class mainActivity : Form {
         private readonly Cursor penCursor;
         private readonly Cursor dragCursor;
+        private readonly Cursor eraserCursor;
 
         private Tool currentTool = Tool.Cursor;
         private Status status = Status.None;
 
         private Point globalTranslation;
         private Point previousMousePos;
+        private Point eraserMousePos;
 
         private readonly List<List<Point>> pathStrokes;
         private List<Point> currentPath;
@@ -47,11 +51,13 @@ namespace WinFormsApp {
             InitializeComponent();
             penCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\PenCursor.cur");
             dragCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\DragCursor.cur");
+            eraserCursor = new Cursor(AppDomain.CurrentDomain.BaseDirectory + "Cursors\\EraserCursor.cur");
 
             currentTool = Tool.Cursor;
             status = Status.None;
 
             globalTranslation = new Point(drawingBox.Size.Width / 2, drawingBox.Size.Height / 2);
+            eraserMousePos = new Point();
 
             pathStrokes = new List<List<Point>>();
         }
@@ -60,6 +66,7 @@ namespace WinFormsApp {
             Graphics world = e.Graphics;
             world.SmoothingMode = SmoothingMode.AntiAlias;
 
+            List<List<Point>> strokesToRemove = new List<List<Point>>();
             bool transformationsEnabled = getCheckedStatus();
             decimal rotationAngle = getValue(Transformation.Rotate);
             decimal homothesis = getValue(Transformation.Scale);
@@ -74,12 +81,26 @@ namespace WinFormsApp {
             yAxis.AddLine(new Point(0, -10000), new Point(0, 10000));
 
             foreach (List<Point> stroke in pathStrokes.Where(x => x.Count > 0)) {
+                bool shouldDelete = false;
                 GraphicsPath p = new GraphicsPath();
                 if (stroke.Count == 1)
                     p.AddRectangle(new Rectangle(stroke[0].X, stroke[0].Y, 1, 1));
                 else
                     p.AddLines(stroke.ToArray());
-                path.AddPath(p, false);
+
+                if (eraserMousePos != null && status == Status.ErasePending) {
+                    shouldDelete = p.IsOutlineVisible(eraserMousePos, new Pen(Color.Blue, 2));
+                    eraserMousePos = new Point();
+                }
+
+                if (status == Status.ErasePending)
+                    status = Status.None;
+
+                if (!shouldDelete) {
+                    path.AddPath(p, false);
+                } else {
+                    strokesToRemove.Add(stroke);
+                }
             }
 
             Matrix tf = new Matrix();
@@ -115,6 +136,10 @@ namespace WinFormsApp {
                     world.DrawPath(new Pen(Color.Blue, 2), path);
                 }
             }
+
+            foreach (List<Point> stroke in strokesToRemove) {
+                _ = pathStrokes.Remove(stroke);
+            }
         }
 
         private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
@@ -143,6 +168,12 @@ namespace WinFormsApp {
                 if (status == Status.None) {
                     status = Status.Dragging;
                     previousMousePos = e.Location;
+                }
+            } else if (currentTool == Tool.Eraser) {
+                if (status == Status.None) {
+                    status = Status.ErasePending;
+                    eraserMousePos = calculatePointWithOffset(e.Location);
+                    Refresh();
                 }
             }
         }
@@ -282,6 +313,8 @@ namespace WinFormsApp {
                     return penToolBtn;
                 case Tool.Line:
                     return lineToolBtn;
+                case Tool.Eraser:
+                    return eraserToolBtn;
                 case Tool.Cursor:
                 default:
                     return cursorToolBtn;
@@ -289,14 +322,11 @@ namespace WinFormsApp {
         }
 
         private Tool getToolFromBtn(ToolStripButton btn) {
-            if (btn == getToolBtn(Tool.Drag))
-                return Tool.Drag;
-            else if (btn == getToolBtn(Tool.Pen))
-                return Tool.Pen;
-            else if (btn == getToolBtn(Tool.Line))
-                return Tool.Line;
-            else
-                return Tool.Cursor;
+            foreach (Tool tool in Enum.GetValues(typeof(Tool))) {
+                if (btn == getToolBtn(tool))
+                    return tool;
+            }
+            return Tool.Cursor;
         }
 
         private Cursor getToolCursor(Tool tool) {
@@ -307,6 +337,8 @@ namespace WinFormsApp {
                     return penCursor;
                 case Tool.Line:
                     return Cursors.Cross;
+                case Tool.Eraser:
+                    return eraserCursor;
                 case Tool.Cursor:
                 default:
                     return Cursors.Default;

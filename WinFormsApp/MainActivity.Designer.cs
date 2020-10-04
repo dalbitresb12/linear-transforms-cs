@@ -52,6 +52,7 @@
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
             this.drawingToolStrip = new System.Windows.Forms.ToolStrip();
             this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.eraserToolBtn = new System.Windows.Forms.ToolStripButton();
             this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
             this.penToolBtn = new System.Windows.Forms.ToolStripButton();
             this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
@@ -476,6 +477,7 @@
             this.drawingToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.drawingToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cursorToolBtn,
+            this.eraserToolBtn,
             this.dragToolBtn,
             this.penToolBtn,
             this.lineToolBtn,
@@ -497,6 +499,16 @@
             this.cursorToolBtn.Size = new System.Drawing.Size(23, 27);
             this.cursorToolBtn.Text = "Cursor";
             this.cursorToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // eraserToolBtn
+            // 
+            this.eraserToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.eraserToolBtn.Image = global::WinFormsApp.Properties.Resources.EraserIcon;
+            this.eraserToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.eraserToolBtn.Name = "eraserToolBtn";
+            this.eraserToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.eraserToolBtn.Text = "Borrador";
+            this.eraserToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
             // dragToolBtn
             // 
@@ -598,5 +610,6 @@
         private System.Windows.Forms.ToolStripButton cursorToolBtn;
         private System.Windows.Forms.ToolStripButton lineToolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton eraserToolBtn;
     }
 }
