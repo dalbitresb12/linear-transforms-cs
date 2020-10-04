@@ -141,10 +141,10 @@
             0,
             0});
             this.homothesisValue.Minimum = new decimal(new int[] {
-            1000,
+            1,
             0,
             0,
-            -2147483648});
+            131072});
             this.homothesisValue.Name = "homothesisValue";
             this.homothesisValue.Size = new System.Drawing.Size(208, 20);
             this.homothesisValue.TabIndex = 7;
