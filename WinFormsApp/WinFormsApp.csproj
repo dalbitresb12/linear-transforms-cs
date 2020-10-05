@@ -116,6 +116,7 @@
     <Content Include="Cursors\PenCursor.cur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\HomeIcon.png" />
     <None Include="Resources\EraserIcon.png" />
     <None Include="Resources\LineIcon.png" />
     <None Include="Resources\CursorIcon.png" />

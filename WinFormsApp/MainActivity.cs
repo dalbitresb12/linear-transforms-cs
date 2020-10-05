@@ -246,6 +246,12 @@ namespace WinFormsApp {
         private void refreshScreen_Event(object sender, EventArgs e) =>
             Refresh();
 
+        private void centerScreenBtn_Click(object sender, EventArgs e) {
+            globalTranslation.X = drawingBox.Size.Width / 2;
+            globalTranslation.Y = drawingBox.Size.Height / 2;
+            Refresh();
+        }
+
         private void numeric_ValueChanged(object sender, EventArgs e) {
             bool checkedStatus = false;
             NumericUpDown numericUpDown = sender as NumericUpDown;

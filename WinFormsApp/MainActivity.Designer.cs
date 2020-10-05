@@ -25,7 +25,6 @@
         private void InitializeComponent() {
             this.mainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.drawingBox = new System.Windows.Forms.PictureBox();
             this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.scaleValue = new System.Windows.Forms.NumericUpDown();
             this.cleanTransformBtn = new System.Windows.Forms.Button();
@@ -41,11 +40,6 @@
             this.translateYValue = new System.Windows.Forms.NumericUpDown();
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
             this.drawingToolStrip = new System.Windows.Forms.ToolStrip();
-            this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.eraserToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.penToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.matrixLayout = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,9 +52,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.multipleViewCheckbox = new System.Windows.Forms.CheckBox();
+            this.drawingBox = new System.Windows.Forms.PictureBox();
+            this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.eraserToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.penToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.centerScreenBtn = new System.Windows.Forms.ToolStripButton();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.optionsLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scaleValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rotationValue)).BeginInit();
@@ -69,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).BeginInit();
             this.drawingToolStrip.SuspendLayout();
             this.matrixLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTableLayout
@@ -95,23 +96,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(574, 444);
             this.panel1.TabIndex = 3;
-            // 
-            // drawingBox
-            // 
-            this.drawingBox.BackColor = System.Drawing.Color.White;
-            this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drawingBox.Location = new System.Drawing.Point(0, 0);
-            this.drawingBox.MinimumSize = new System.Drawing.Size(100, 100);
-            this.drawingBox.Name = "drawingBox";
-            this.drawingBox.Size = new System.Drawing.Size(574, 444);
-            this.drawingBox.TabIndex = 1;
-            this.drawingBox.TabStop = false;
-            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
-            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
-            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
-            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
             // optionsLayout
             // 
@@ -344,6 +328,7 @@
             this.drawingToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.drawingToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.centerScreenBtn,
             this.cursorToolBtn,
             this.eraserToolBtn,
             this.dragToolBtn,
@@ -355,58 +340,6 @@
             this.drawingToolStrip.Size = new System.Drawing.Size(214, 30);
             this.drawingToolStrip.TabIndex = 26;
             this.drawingToolStrip.Text = "Herramientas de dibujo";
-            // 
-            // cursorToolBtn
-            // 
-            this.cursorToolBtn.Checked = true;
-            this.cursorToolBtn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cursorToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cursorToolBtn.Image = global::WinFormsApp.Properties.Resources.CursorIcon;
-            this.cursorToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cursorToolBtn.Name = "cursorToolBtn";
-            this.cursorToolBtn.Size = new System.Drawing.Size(23, 27);
-            this.cursorToolBtn.Text = "Cursor";
-            this.cursorToolBtn.Click += new System.EventHandler(this.selectTool_Click);
-            // 
-            // eraserToolBtn
-            // 
-            this.eraserToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.eraserToolBtn.Image = global::WinFormsApp.Properties.Resources.EraserIcon;
-            this.eraserToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.eraserToolBtn.Name = "eraserToolBtn";
-            this.eraserToolBtn.Size = new System.Drawing.Size(23, 27);
-            this.eraserToolBtn.Text = "Borrador";
-            this.eraserToolBtn.Click += new System.EventHandler(this.selectTool_Click);
-            // 
-            // dragToolBtn
-            // 
-            this.dragToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.dragToolBtn.Image = global::WinFormsApp.Properties.Resources.DragIcon;
-            this.dragToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.dragToolBtn.Name = "dragToolBtn";
-            this.dragToolBtn.Size = new System.Drawing.Size(23, 27);
-            this.dragToolBtn.Text = "Mover";
-            this.dragToolBtn.Click += new System.EventHandler(this.selectTool_Click);
-            // 
-            // penToolBtn
-            // 
-            this.penToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.penToolBtn.Image = global::WinFormsApp.Properties.Resources.PenIcon;
-            this.penToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.penToolBtn.Name = "penToolBtn";
-            this.penToolBtn.Size = new System.Drawing.Size(23, 27);
-            this.penToolBtn.Text = "Lápiz";
-            this.penToolBtn.Click += new System.EventHandler(this.selectTool_Click);
-            // 
-            // lineToolBtn
-            // 
-            this.lineToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.lineToolBtn.Image = global::WinFormsApp.Properties.Resources.LineIcon;
-            this.lineToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.lineToolBtn.Name = "lineToolBtn";
-            this.lineToolBtn.Size = new System.Drawing.Size(23, 27);
-            this.lineToolBtn.Text = "Línea";
-            this.lineToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
             // toolStripSeparator1
             // 
@@ -548,6 +481,85 @@
             this.multipleViewCheckbox.UseVisualStyleBackColor = true;
             this.multipleViewCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen_Event);
             // 
+            // drawingBox
+            // 
+            this.drawingBox.BackColor = System.Drawing.Color.White;
+            this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawingBox.Location = new System.Drawing.Point(0, 0);
+            this.drawingBox.MinimumSize = new System.Drawing.Size(100, 100);
+            this.drawingBox.Name = "drawingBox";
+            this.drawingBox.Size = new System.Drawing.Size(574, 444);
+            this.drawingBox.TabIndex = 1;
+            this.drawingBox.TabStop = false;
+            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
+            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
+            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
+            // 
+            // cursorToolBtn
+            // 
+            this.cursorToolBtn.Checked = true;
+            this.cursorToolBtn.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cursorToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cursorToolBtn.Image = global::WinFormsApp.Properties.Resources.CursorIcon;
+            this.cursorToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cursorToolBtn.Name = "cursorToolBtn";
+            this.cursorToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.cursorToolBtn.Text = "Cursor";
+            this.cursorToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // eraserToolBtn
+            // 
+            this.eraserToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.eraserToolBtn.Image = global::WinFormsApp.Properties.Resources.EraserIcon;
+            this.eraserToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.eraserToolBtn.Name = "eraserToolBtn";
+            this.eraserToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.eraserToolBtn.Text = "Borrador";
+            this.eraserToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // dragToolBtn
+            // 
+            this.dragToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.dragToolBtn.Image = global::WinFormsApp.Properties.Resources.DragIcon;
+            this.dragToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dragToolBtn.Name = "dragToolBtn";
+            this.dragToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.dragToolBtn.Text = "Mover";
+            this.dragToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // penToolBtn
+            // 
+            this.penToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.penToolBtn.Image = global::WinFormsApp.Properties.Resources.PenIcon;
+            this.penToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.penToolBtn.Name = "penToolBtn";
+            this.penToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.penToolBtn.Text = "Lápiz";
+            this.penToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // lineToolBtn
+            // 
+            this.lineToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.lineToolBtn.Image = global::WinFormsApp.Properties.Resources.LineIcon;
+            this.lineToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.lineToolBtn.Name = "lineToolBtn";
+            this.lineToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.lineToolBtn.Text = "Línea";
+            this.lineToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // centerScreenBtn
+            // 
+            this.centerScreenBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.centerScreenBtn.Image = global::WinFormsApp.Properties.Resources.HomeIcon;
+            this.centerScreenBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.centerScreenBtn.Name = "centerScreenBtn";
+            this.centerScreenBtn.Size = new System.Drawing.Size(23, 27);
+            this.centerScreenBtn.Text = "Centrar pantalla";
+            this.centerScreenBtn.Click += new System.EventHandler(this.centerScreenBtn_Click);
+            // 
             // mainActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -561,7 +573,6 @@
             this.Resize += new System.EventHandler(this.refreshScreen_Event);
             this.mainTableLayout.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.optionsLayout.ResumeLayout(false);
             this.optionsLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scaleValue)).EndInit();
@@ -574,6 +585,7 @@
             this.drawingToolStrip.PerformLayout();
             this.matrixLayout.ResumeLayout(false);
             this.matrixLayout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -615,5 +627,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox multipleViewCheckbox;
+        private System.Windows.Forms.ToolStripButton centerScreenBtn;
     }
 }
