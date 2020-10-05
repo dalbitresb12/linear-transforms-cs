@@ -71,9 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="MainActivity.cs" />
     <Compile Include="MainActivity.Designer.cs">
       <DependentUpon>MainActivity.cs</DependentUpon>
     </Compile>
@@ -116,6 +114,7 @@
     <Content Include="Cursors\PenCursor.cur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\TextIcon.png" />
     <None Include="Resources\HomeIcon.png" />
     <None Include="Resources\EraserIcon.png" />
     <None Include="Resources\LineIcon.png" />

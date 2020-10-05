@@ -12,7 +12,8 @@ namespace WinFormsApp {
         Pen,
         Rectangle,
         Line,
-        Eraser
+        Eraser,
+        Text
     }
 
     enum Transformation {
@@ -29,7 +30,21 @@ namespace WinFormsApp {
         LineDrawing,
         Dragging,
         ErasePending,
+        WritingText,
         None
+    }
+
+    class TextPath {
+        public string Text;
+        public Point Location;
+
+        public TextPath(Point loc) {
+            Text = "";
+            Location = new Point(loc.X, loc.Y);
+        }
+
+        public bool IsEmpty() =>
+            Text.Length == 0 && Location.IsEmpty;
     }
 
     public partial class mainActivity : Form {
@@ -45,7 +60,9 @@ namespace WinFormsApp {
         private Point eraserMousePos;
 
         private readonly List<List<Point>> pathStrokes;
+        private readonly List<TextPath> textPaths;
         private List<Point> currentPath;
+        private TextPath currentTextPath;
 
         public mainActivity() {
             InitializeComponent();
@@ -60,6 +77,7 @@ namespace WinFormsApp {
             eraserMousePos = new Point();
 
             pathStrokes = new List<List<Point>>();
+            textPaths = new List<TextPath>();
         }
 
         private void drawingBox_Paint(object sender, PaintEventArgs e) {
@@ -76,6 +94,7 @@ namespace WinFormsApp {
             GraphicsPath xAxis = new GraphicsPath();
             GraphicsPath yAxis = new GraphicsPath();
             GraphicsPath path = new GraphicsPath();
+            GraphicsPath text = new GraphicsPath();
 
             xAxis.AddLine(new Point(-10000, 0), new Point(10000, 0));
             yAxis.AddLine(new Point(0, -10000), new Point(0, 10000));
@@ -101,6 +120,10 @@ namespace WinFormsApp {
                 } else {
                     strokesToRemove.Add(stroke);
                 }
+            }
+
+            foreach (TextPath textPath in textPaths.Where(x => !x.IsEmpty())) {
+                text.AddString(textPath.Text, new FontFamily("Arial"), (int)FontStyle.Regular, 26, textPath.Location, StringFormat.GenericDefault);
             }
 
             Matrix tf = new Matrix();
@@ -129,13 +152,18 @@ namespace WinFormsApp {
             world.DrawPath(new Pen(Color.Black, 1), yAxis);
 
             if (pathStrokes != null && pathStrokes.Count > 0) {
-                if (multipleViewCheckbox.Checked)
+                if (multipleViewCheckbox.Checked) {
                     world.DrawPath(new Pen(Color.Green, 2), path);
+                    world.FillPath(Brushes.Green, text);
+                }
 
                 if (getValue(Transformation.Scale) != 0) {
-                    if (transformationsEnabled)
+                    if (transformationsEnabled) {
                         path.Transform(tf);
+                        text.Transform(tf);
+                    }
                     world.DrawPath(new Pen(Color.Blue, 2), path);
+                    world.FillPath(Brushes.Blue, text);
                 }
             }
 
@@ -175,6 +203,13 @@ namespace WinFormsApp {
                 if (status == Status.None) {
                     status = Status.ErasePending;
                     eraserMousePos = calculatePointWithOffset(e.Location);
+                    Refresh();
+                }
+            } else if (currentTool == Tool.Text) {
+                if (status == Status.None) {
+                    status = Status.WritingText;
+                    currentTextPath = new TextPath(calculatePointWithOffset(e.Location));
+                    textPaths.Add(currentTextPath);
                     Refresh();
                 }
             }
@@ -227,6 +262,14 @@ namespace WinFormsApp {
                 e.SuppressKeyPress = true;
 
                 getToolBtn(Tool.Cursor).PerformClick();
+            } else {
+                if (currentTool == Tool.Text && status == Status.WritingText && currentTextPath != null) {
+                    currentTextPath.Text += e.KeyCode.ToString();
+                    
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    Refresh();
+                }
             }
         }
 
@@ -305,6 +348,9 @@ namespace WinFormsApp {
                 if (currentPath != null)
                     currentPath = null;
 
+                if (currentTextPath != null)
+                    currentTextPath = null;
+
                 btn.Checked = true;
                 btn.CheckState = CheckState.Checked;
             } else {
@@ -323,6 +369,8 @@ namespace WinFormsApp {
                     return lineToolBtn;
                 case Tool.Eraser:
                     return eraserToolBtn;
+                case Tool.Text:
+                    return textToolBtn;
                 case Tool.Cursor:
                 default:
                     return cursorToolBtn;

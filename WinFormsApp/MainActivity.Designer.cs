@@ -53,12 +53,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.multipleViewCheckbox = new System.Windows.Forms.CheckBox();
             this.drawingBox = new System.Windows.Forms.PictureBox();
+            this.centerScreenBtn = new System.Windows.Forms.ToolStripButton();
             this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
             this.eraserToolBtn = new System.Windows.Forms.ToolStripButton();
             this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
             this.penToolBtn = new System.Windows.Forms.ToolStripButton();
             this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.centerScreenBtn = new System.Windows.Forms.ToolStripButton();
+            this.textToolBtn = new System.Windows.Forms.ToolStripButton();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
             this.optionsLayout.SuspendLayout();
@@ -334,6 +335,7 @@
             this.dragToolBtn,
             this.penToolBtn,
             this.lineToolBtn,
+            this.textToolBtn,
             this.toolStripSeparator1});
             this.drawingToolStrip.Location = new System.Drawing.Point(0, 0);
             this.drawingToolStrip.Name = "drawingToolStrip";
@@ -498,6 +500,16 @@
             this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
             this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
+            // centerScreenBtn
+            // 
+            this.centerScreenBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.centerScreenBtn.Image = global::WinFormsApp.Properties.Resources.HomeIcon;
+            this.centerScreenBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.centerScreenBtn.Name = "centerScreenBtn";
+            this.centerScreenBtn.Size = new System.Drawing.Size(23, 27);
+            this.centerScreenBtn.Text = "Centrar pantalla";
+            this.centerScreenBtn.Click += new System.EventHandler(this.centerScreenBtn_Click);
+            // 
             // cursorToolBtn
             // 
             this.cursorToolBtn.Checked = true;
@@ -550,15 +562,15 @@
             this.lineToolBtn.Text = "Línea";
             this.lineToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
-            // centerScreenBtn
+            // textToolBtn
             // 
-            this.centerScreenBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.centerScreenBtn.Image = global::WinFormsApp.Properties.Resources.HomeIcon;
-            this.centerScreenBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.centerScreenBtn.Name = "centerScreenBtn";
-            this.centerScreenBtn.Size = new System.Drawing.Size(23, 27);
-            this.centerScreenBtn.Text = "Centrar pantalla";
-            this.centerScreenBtn.Click += new System.EventHandler(this.centerScreenBtn_Click);
+            this.textToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.textToolBtn.Image = global::WinFormsApp.Properties.Resources.TextIcon;
+            this.textToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.textToolBtn.Name = "textToolBtn";
+            this.textToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.textToolBtn.Text = "toolStripButton1";
+            this.textToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
             // mainActivity
             // 
@@ -628,5 +640,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox multipleViewCheckbox;
         private System.Windows.Forms.ToolStripButton centerScreenBtn;
+        private System.Windows.Forms.ToolStripButton textToolBtn;
     }
 }
