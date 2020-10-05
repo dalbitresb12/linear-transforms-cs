@@ -23,12 +23,13 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainActivity));
             this.mainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.drawingBox = new System.Windows.Forms.PictureBox();
             this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.scaleValue = new System.Windows.Forms.NumericUpDown();
-            this.cleanTransformBtn = new System.Windows.Forms.Button();
+            this.undoTransformationsBtn = new System.Windows.Forms.Button();
             this.rotationCheckbox = new System.Windows.Forms.CheckBox();
             this.scaleCheckbox = new System.Windows.Forms.CheckBox();
             this.reflectionXCheckbox = new System.Windows.Forms.CheckBox();
@@ -51,13 +52,15 @@
             this.translateYValue = new System.Windows.Forms.NumericUpDown();
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
             this.drawingToolStrip = new System.Windows.Forms.ToolStrip();
-            this.centerScreenBtn = new System.Windows.Forms.ToolStripButton();
             this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.centerScreenBtn = new System.Windows.Forms.ToolStripButton();
+            this.cleanBoardBtn = new System.Windows.Forms.ToolStripButton();
             this.eraserToolBtn = new System.Windows.Forms.ToolStripButton();
             this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.penToolBtn = new System.Windows.Forms.ToolStripButton();
             this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.rectangleToolBtn = new System.Windows.Forms.ToolStripButton();
             this.multipleViewCheckbox = new System.Windows.Forms.CheckBox();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -119,7 +122,7 @@
             this.optionsLayout.ColumnCount = 1;
             this.optionsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214F));
             this.optionsLayout.Controls.Add(this.scaleValue, 0, 6);
-            this.optionsLayout.Controls.Add(this.cleanTransformBtn, 0, 10);
+            this.optionsLayout.Controls.Add(this.undoTransformationsBtn, 0, 10);
             this.optionsLayout.Controls.Add(this.rotationCheckbox, 0, 5);
             this.optionsLayout.Controls.Add(this.scaleCheckbox, 0, 7);
             this.optionsLayout.Controls.Add(this.reflectionXCheckbox, 0, 8);
@@ -178,16 +181,16 @@
             0});
             this.scaleValue.ValueChanged += new System.EventHandler(this.numeric_ValueChanged);
             // 
-            // cleanTransformBtn
+            // undoTransformationsBtn
             // 
-            this.cleanTransformBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cleanTransformBtn.Location = new System.Drawing.Point(3, 258);
-            this.cleanTransformBtn.Name = "cleanTransformBtn";
-            this.cleanTransformBtn.Size = new System.Drawing.Size(208, 29);
-            this.cleanTransformBtn.TabIndex = 11;
-            this.cleanTransformBtn.Text = "Deshacer transformaciones";
-            this.cleanTransformBtn.UseVisualStyleBackColor = true;
-            this.cleanTransformBtn.Click += new System.EventHandler(this.cleanTransformBtn_Click);
+            this.undoTransformationsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.undoTransformationsBtn.Location = new System.Drawing.Point(3, 258);
+            this.undoTransformationsBtn.Name = "undoTransformationsBtn";
+            this.undoTransformationsBtn.Size = new System.Drawing.Size(208, 29);
+            this.undoTransformationsBtn.TabIndex = 11;
+            this.undoTransformationsBtn.Text = "Deshacer transformaciones";
+            this.undoTransformationsBtn.UseVisualStyleBackColor = true;
+            this.undoTransformationsBtn.Click += new System.EventHandler(this.undoTransformations_Click);
             // 
             // rotationCheckbox
             // 
@@ -468,28 +471,20 @@
             this.drawingToolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.drawingToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.centerScreenBtn,
             this.cursorToolBtn,
+            this.centerScreenBtn,
+            this.cleanBoardBtn,
             this.eraserToolBtn,
             this.dragToolBtn,
+            this.toolStripSeparator1,
             this.penToolBtn,
             this.lineToolBtn,
-            this.toolStripSeparator1});
+            this.rectangleToolBtn});
             this.drawingToolStrip.Location = new System.Drawing.Point(0, 0);
             this.drawingToolStrip.Name = "drawingToolStrip";
             this.drawingToolStrip.Size = new System.Drawing.Size(214, 30);
             this.drawingToolStrip.TabIndex = 26;
             this.drawingToolStrip.Text = "Herramientas de dibujo";
-            // 
-            // centerScreenBtn
-            // 
-            this.centerScreenBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.centerScreenBtn.Image = global::WinFormsApp.Properties.Resources.HomeIcon;
-            this.centerScreenBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.centerScreenBtn.Name = "centerScreenBtn";
-            this.centerScreenBtn.Size = new System.Drawing.Size(23, 27);
-            this.centerScreenBtn.Text = "Centrar pantalla";
-            this.centerScreenBtn.Click += new System.EventHandler(this.centerScreenBtn_Click);
             // 
             // cursorToolBtn
             // 
@@ -502,6 +497,26 @@
             this.cursorToolBtn.Size = new System.Drawing.Size(23, 27);
             this.cursorToolBtn.Text = "Cursor";
             this.cursorToolBtn.Click += new System.EventHandler(this.selectTool_Click);
+            // 
+            // centerScreenBtn
+            // 
+            this.centerScreenBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.centerScreenBtn.Image = global::WinFormsApp.Properties.Resources.HomeIcon;
+            this.centerScreenBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.centerScreenBtn.Name = "centerScreenBtn";
+            this.centerScreenBtn.Size = new System.Drawing.Size(23, 27);
+            this.centerScreenBtn.Text = "Centrar pantalla";
+            this.centerScreenBtn.Click += new System.EventHandler(this.centerScreenBtn_Click);
+            // 
+            // cleanBoardBtn
+            // 
+            this.cleanBoardBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cleanBoardBtn.Image = ((System.Drawing.Image)(resources.GetObject("cleanBoardBtn.Image")));
+            this.cleanBoardBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cleanBoardBtn.Name = "cleanBoardBtn";
+            this.cleanBoardBtn.Size = new System.Drawing.Size(23, 27);
+            this.cleanBoardBtn.Text = "Limpiar";
+            this.cleanBoardBtn.Click += new System.EventHandler(this.cleanBoardBtn_Click);
             // 
             // eraserToolBtn
             // 
@@ -523,6 +538,11 @@
             this.dragToolBtn.Text = "Mover";
             this.dragToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
+            // 
             // penToolBtn
             // 
             this.penToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -540,13 +560,18 @@
             this.lineToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lineToolBtn.Name = "lineToolBtn";
             this.lineToolBtn.Size = new System.Drawing.Size(23, 27);
-            this.lineToolBtn.Text = "Línea";
+            this.lineToolBtn.Text = "Segmentos";
             this.lineToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
-            // toolStripSeparator1
+            // rectangleToolBtn
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
+            this.rectangleToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.rectangleToolBtn.Image = global::WinFormsApp.Properties.Resources.RectangleIcon;
+            this.rectangleToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rectangleToolBtn.Name = "rectangleToolBtn";
+            this.rectangleToolBtn.Size = new System.Drawing.Size(23, 27);
+            this.rectangleToolBtn.Text = "Rectángulo";
+            this.rectangleToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
             // multipleViewCheckbox
             // 
@@ -600,7 +625,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown rotationValue;
         private System.Windows.Forms.NumericUpDown scaleValue;
-        private System.Windows.Forms.Button cleanTransformBtn;
+        private System.Windows.Forms.Button undoTransformationsBtn;
         private System.Windows.Forms.CheckBox rotationCheckbox;
         private System.Windows.Forms.CheckBox scaleCheckbox;
         private System.Windows.Forms.CheckBox reflectionXCheckbox;
@@ -630,5 +655,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox multipleViewCheckbox;
         private System.Windows.Forms.ToolStripButton centerScreenBtn;
+        private System.Windows.Forms.ToolStripButton rectangleToolBtn;
+        private System.Windows.Forms.ToolStripButton cleanBoardBtn;
     }
 }

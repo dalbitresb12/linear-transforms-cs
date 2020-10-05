@@ -252,6 +252,14 @@ namespace WinFormsApp {
             Refresh();
         }
 
+        private void cleanBoardBtn_Click(object sender, EventArgs e) {            
+            if (pathStrokes.Count > 0)
+                pathStrokes.Clear();
+
+            getToolBtn(Tool.Cursor).PerformClick();
+            Refresh();
+        }
+
         private void numeric_ValueChanged(object sender, EventArgs e) {
             bool checkedStatus = false;
             NumericUpDown numericUpDown = sender as NumericUpDown;
@@ -276,7 +284,7 @@ namespace WinFormsApp {
         private void applyTransformations_CheckedChanged(object sender, EventArgs e) =>
             Refresh();
 
-        private void cleanTransformBtn_Click(object sender, EventArgs e) {
+        private void undoTransformations_Click(object sender, EventArgs e) {
             foreach (Transformation tf in Enum.GetValues(typeof(Transformation))) {
                 (getTransformation(tf, typeof(CheckBox)) as CheckBox).Checked = false;
             }
@@ -323,6 +331,8 @@ namespace WinFormsApp {
                     return lineToolBtn;
                 case Tool.Eraser:
                     return eraserToolBtn;
+                case Tool.Rectangle:
+                    return rectangleToolBtn;
                 case Tool.Cursor:
                 default:
                     return cursorToolBtn;
@@ -344,6 +354,7 @@ namespace WinFormsApp {
                 case Tool.Pen:
                     return penCursor;
                 case Tool.Line:
+                case Tool.Rectangle:
                     return Cursors.Cross;
                 case Tool.Eraser:
                     return eraserCursor;
