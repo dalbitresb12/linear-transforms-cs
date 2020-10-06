@@ -27,6 +27,7 @@ namespace WinFormsApp {
     enum Status {
         PenDrawing,
         LineDrawing,
+        RectangleDrawing,
         Dragging,
         ErasePending,
         None
@@ -46,6 +47,7 @@ namespace WinFormsApp {
 
         private readonly List<List<Point>> pathStrokes;
         private List<Point> currentPath;
+        private Rectangle currentRect;
 
         public mainActivity() {
             InitializeComponent();
@@ -177,6 +179,18 @@ namespace WinFormsApp {
                     eraserMousePos = calculatePointWithOffset(e.Location);
                     Refresh();
                 }
+            } else if (currentTool == Tool.Rectangle) {
+                if (status == Status.None) {
+                    Point mousePos = calculatePointWithOffset(e.Location);
+                    status = Status.RectangleDrawing;
+                    currentRect = new Rectangle(mousePos, new Size(1, 1));
+
+                    currentPath = new List<Point>();
+                    currentPath.Add(mousePos);
+
+                    pathStrokes.Add(currentPath);
+                    Refresh();
+                }
             }
         }
 
@@ -209,6 +223,30 @@ namespace WinFormsApp {
                 currentPath = null;
             } else if (currentTool == Tool.Drag && status == Status.Dragging) {
                 status = Status.None;
+            } else if (currentTool == Tool.Rectangle && status == Status.RectangleDrawing) {
+                GraphicsPath path = new GraphicsPath();
+                Point mousePos = calculatePointWithOffset(e.Location);
+
+                int width = mousePos.X - currentRect.X;
+                int height = mousePos.Y - currentRect.Y;
+
+                if (width > 0 && height > 0) {
+                    currentRect.Size = new Size(width, height);
+
+                    path.AddRectangle(currentRect);
+
+                    currentPath.Clear();
+                    foreach (PointF point in path.PathPoints.Where(x => !x.IsEmpty)) {
+                        currentPath.Add(Point.Round(point));
+                    }
+                    currentPath.Add(Point.Round(path.PathPoints[0]));
+                } else {
+                    _ = pathStrokes.Remove(currentPath);
+                }
+
+                status = Status.None;
+                currentPath = null;
+                Refresh();
             }
         }
 

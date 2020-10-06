@@ -23,10 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainActivity));
             this.mainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.drawingBox = new System.Windows.Forms.PictureBox();
             this.optionsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.scaleValue = new System.Windows.Forms.NumericUpDown();
             this.undoTransformationsBtn = new System.Windows.Forms.Button();
@@ -52,19 +50,19 @@
             this.translateYValue = new System.Windows.Forms.NumericUpDown();
             this.translateCheckbox = new System.Windows.Forms.CheckBox();
             this.drawingToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.multipleViewCheckbox = new System.Windows.Forms.CheckBox();
+            this.drawingBox = new System.Windows.Forms.PictureBox();
             this.cursorToolBtn = new System.Windows.Forms.ToolStripButton();
             this.centerScreenBtn = new System.Windows.Forms.ToolStripButton();
             this.cleanBoardBtn = new System.Windows.Forms.ToolStripButton();
             this.eraserToolBtn = new System.Windows.Forms.ToolStripButton();
             this.dragToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.penToolBtn = new System.Windows.Forms.ToolStripButton();
             this.lineToolBtn = new System.Windows.Forms.ToolStripButton();
             this.rectangleToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.multipleViewCheckbox = new System.Windows.Forms.CheckBox();
             this.mainTableLayout.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.optionsLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scaleValue)).BeginInit();
             this.matrixLayout.SuspendLayout();
@@ -73,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.translateXValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).BeginInit();
             this.drawingToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTableLayout
@@ -99,23 +98,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(574, 444);
             this.panel1.TabIndex = 3;
-            // 
-            // drawingBox
-            // 
-            this.drawingBox.BackColor = System.Drawing.Color.White;
-            this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drawingBox.Location = new System.Drawing.Point(0, 0);
-            this.drawingBox.MinimumSize = new System.Drawing.Size(100, 100);
-            this.drawingBox.Name = "drawingBox";
-            this.drawingBox.Size = new System.Drawing.Size(574, 444);
-            this.drawingBox.TabIndex = 1;
-            this.drawingBox.TabStop = false;
-            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
-            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
-            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
-            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
             // optionsLayout
             // 
@@ -486,6 +468,42 @@
             this.drawingToolStrip.TabIndex = 26;
             this.drawingToolStrip.Text = "Herramientas de dibujo";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
+            // 
+            // multipleViewCheckbox
+            // 
+            this.multipleViewCheckbox.AutoSize = true;
+            this.multipleViewCheckbox.Checked = true;
+            this.multipleViewCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.multipleViewCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.multipleViewCheckbox.Location = new System.Drawing.Point(3, 33);
+            this.multipleViewCheckbox.Name = "multipleViewCheckbox";
+            this.multipleViewCheckbox.Size = new System.Drawing.Size(208, 19);
+            this.multipleViewCheckbox.TabIndex = 27;
+            this.multipleViewCheckbox.Text = "Mostrar dibujo original";
+            this.multipleViewCheckbox.UseVisualStyleBackColor = true;
+            this.multipleViewCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen_Event);
+            // 
+            // drawingBox
+            // 
+            this.drawingBox.BackColor = System.Drawing.Color.White;
+            this.drawingBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.drawingBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.drawingBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawingBox.Location = new System.Drawing.Point(0, 0);
+            this.drawingBox.MinimumSize = new System.Drawing.Size(100, 100);
+            this.drawingBox.Name = "drawingBox";
+            this.drawingBox.Size = new System.Drawing.Size(574, 444);
+            this.drawingBox.TabIndex = 1;
+            this.drawingBox.TabStop = false;
+            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
+            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
+            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
+            // 
             // cursorToolBtn
             // 
             this.cursorToolBtn.Checked = true;
@@ -511,7 +529,7 @@
             // cleanBoardBtn
             // 
             this.cleanBoardBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cleanBoardBtn.Image = ((System.Drawing.Image)(resources.GetObject("cleanBoardBtn.Image")));
+            this.cleanBoardBtn.Image = global::WinFormsApp.Properties.Resources.DeleteIcon;
             this.cleanBoardBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cleanBoardBtn.Name = "cleanBoardBtn";
             this.cleanBoardBtn.Size = new System.Drawing.Size(23, 27);
@@ -537,11 +555,6 @@
             this.dragToolBtn.Size = new System.Drawing.Size(23, 27);
             this.dragToolBtn.Text = "Mover";
             this.dragToolBtn.Click += new System.EventHandler(this.selectTool_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
             // 
             // penToolBtn
             // 
@@ -573,20 +586,6 @@
             this.rectangleToolBtn.Text = "Rectángulo";
             this.rectangleToolBtn.Click += new System.EventHandler(this.selectTool_Click);
             // 
-            // multipleViewCheckbox
-            // 
-            this.multipleViewCheckbox.AutoSize = true;
-            this.multipleViewCheckbox.Checked = true;
-            this.multipleViewCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.multipleViewCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.multipleViewCheckbox.Location = new System.Drawing.Point(3, 33);
-            this.multipleViewCheckbox.Name = "multipleViewCheckbox";
-            this.multipleViewCheckbox.Size = new System.Drawing.Size(208, 19);
-            this.multipleViewCheckbox.TabIndex = 27;
-            this.multipleViewCheckbox.Text = "Mostrar dibujo original";
-            this.multipleViewCheckbox.UseVisualStyleBackColor = true;
-            this.multipleViewCheckbox.CheckedChanged += new System.EventHandler(this.refreshScreen_Event);
-            // 
             // mainActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -600,7 +599,6 @@
             this.Resize += new System.EventHandler(this.refreshScreen_Event);
             this.mainTableLayout.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.optionsLayout.ResumeLayout(false);
             this.optionsLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scaleValue)).EndInit();
@@ -613,6 +611,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.translateYValue)).EndInit();
             this.drawingToolStrip.ResumeLayout(false);
             this.drawingToolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.ResumeLayout(false);
 
         }
