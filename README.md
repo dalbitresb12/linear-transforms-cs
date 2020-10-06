@@ -4,7 +4,7 @@ Trabajo parcial del curso de Matemática Discreta de la carrera de Ingeniería d
 
 ## Pre-Requisitos 📋
 
-- [_Microsoft Visual C++ 2019_](https://visualstudio.microsoft.com/) - _Community/Professional/Enterprise_
+- [_Microsoft Visual 2019_](https://visualstudio.microsoft.com/) - _Community/Professional/Enterprise_
 
 ## Compilación y Ejecución ⚙️
 
