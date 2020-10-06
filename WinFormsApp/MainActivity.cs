@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WinFormsApp {
+namespace LinearTransforms {
     enum Tool {
         Cursor,
         Drag,
