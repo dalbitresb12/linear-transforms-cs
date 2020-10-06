@@ -18,7 +18,7 @@ Para compilar el proyecto, se debe iniciar la compilación abriendo la solución
 
 - Grossman, S. (2012). _Álgebra Lineal_. (7ma ed.). México, D.F.: McGraw-Hill.
 
-- Microsoft (2017). .NET Desktop Guide for Windows Forms. _Microsoft Docs_. Recuperado de [https://docs.microsoft.com/en-us/dotnet/desktop/winforms/?view=netframeworkdesktop-4.8](https://docs.microsoft.com/en-us/dotnet/desktop/winforms/?view=netframeworkdesktop-4.8)
+- Microsoft (2017). .NET Desktop Guide for Windows Forms. _Microsoft Docs_. Recuperado de [https://docs.microsoft.com/en-us/dotnet/desktop/winforms/?view=netframeworkdesktop-4.8](https://docs.microsoft.com/en-us/dotnet/desktop/winforms/?view=netframeworkdesktop-4.8).
 
 - Microsoft (2017). Graphics and Drawing - Windows Forms .NET Framework. _Microsoft Docs_. Recuperado de [https://docs.microsoft.com/en-us/dotnet/desktop/winforms/advanced/graphics-and-drawing-in-windows-forms?view=netframeworkdesktop-4.8](https://docs.microsoft.com/en-us/dotnet/desktop/winforms/advanced/graphics-and-drawing-in-windows-forms?view=netframeworkdesktop-4.8).
 
