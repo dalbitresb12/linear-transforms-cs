@@ -71,7 +71,7 @@ namespace LinearTransforms {
             List<List<Point>> strokesToRemove = new List<List<Point>>();
             bool transformationsEnabled = getCheckedStatus();
             decimal rotationAngle = getValue(Transformation.Rotate);
-            decimal homothesis = getValue(Transformation.Scale);
+            decimal homothecy = getValue(Transformation.Scale);
             decimal translateX = getValue(Transformation.TranslationX);
             decimal translateY = getValue(Transformation.TranslationY);
 
@@ -118,7 +118,7 @@ namespace LinearTransforms {
                     tf.Rotate(-(float)rotationAngle, MatrixOrder.Append);
 
                 if (getCheckedStatus(Transformation.Scale))
-                    tf.Scale((float)homothesis, (float)homothesis, MatrixOrder.Append);
+                    tf.Scale((float)homothecy, (float)homothecy, MatrixOrder.Append);
 
                 if (getCheckedStatus(Transformation.TranslationX) || getCheckedStatus(Transformation.TranslationY))
                     tf.Translate((float)translateX, -(float)translateY, MatrixOrder.Append);
